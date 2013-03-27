@@ -1,0 +1,19 @@
+{
+  "name": "mycha",
+  "version": "0.0.0",
+  "main": "mycha.js",
+  "bin": {
+    "mycha": "mycha.bin.js"
+  },
+  "dependencies": {
+    "chai": "latest",
+    "mocha": "latest",
+    "sinon": "latest",
+    "sinon-chai": "latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/alexdavid/mycha.git"
+  },
+  "author": "Alex David"
+}
