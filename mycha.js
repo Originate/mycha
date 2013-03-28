@@ -12,14 +12,14 @@
 
   Mycha = (function() {
 
-    function Mycha(testDir, options) {
-      this.testDir = testDir;
+    function Mycha(projectDir, options) {
       if (options == null) {
         options = {};
       }
       this.stdout = options.stdout || process.stdout;
       this.stderr = options.stdin || process.stderr;
       this.reporter = options.reporter || 'dot';
+      this.testDir = path.join(projectDir, 'test');
     }
 
     Mycha.prototype.getTestFiles = function() {

@@ -4,10 +4,11 @@ path = require 'path'
 child = require 'child_process'
 
 class Mycha
-  constructor: (@testDir, options={}) ->
+  constructor: (projectDir, options={}) ->
     @stdout = options.stdout or process.stdout
     @stderr = options.stdin or process.stderr
     @reporter = options.reporter or 'dot'
+    @testDir = path.join projectDir, 'test'
 
 
   getTestFiles: ->
