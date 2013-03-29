@@ -51,15 +51,13 @@ Mycha = (function() {
 
   Mycha.prototype.run = function(callback) {
     var args, childProcess;
-    if (callback == null) {
-      callback = (function() {});
-    }
-    args = [['--compilers', 'coffee:coffee-script'], ['--reporter', this.reporter], '--colors', "" + __dirname + "/helper.coffee", this.getTestFiles()];
-    args = [].concat.apply([], args);
-    childProcess = child.spawn("" + __dirname + "/node_modules/mocha/bin/mocha", args);
+    args = ["--compilers coffee:coffee-script", "--reporter " + this.reporter, "--colors", "" + __dirname + "/helper.coffee", this.getTestFiles().join(' ')];
+    childProcess = child.spawn("" + __dirname + "/node_modules/mocha/bin/mocha", args.join(' '));
     childProcess.stdout.pipe(this.stdout);
     childProcess.stderr.pipe(this.stderr);
-    return childProcess.on('exit', callback);
+    if (callback) {
+      return childProcess.on('exit', callback);
+    }
   };
 
   return Mycha;

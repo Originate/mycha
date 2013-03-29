@@ -27,25 +27,24 @@ class Mycha
     files
 
 
-  run: (callback=(->)) ->
+  run: (callback) ->
     args = [
       # Set mocha options
-      ['--compilers', 'coffee:coffee-script']
-      ['--reporter', @reporter]
-      '--colors'
+      "--compilers coffee:coffee-script"
+      "--reporter #{@reporter}"
+      "--colors"
 
       # Include mycha test helper
       "#{__dirname}/helper.coffee"
 
       # Include files found in /test
-      @getTestFiles()
+      @getTestFiles().join(' ')
     ]
 
-    args = [].concat.apply [], args
-    childProcess = child.spawn "#{__dirname}/node_modules/mocha/bin/mocha", args
+    childProcess = child.spawn "#{__dirname}/node_modules/mocha/bin/mocha", args.join ' '
     childProcess.stdout.pipe @stdout
     childProcess.stderr.pipe @stderr
-    childProcess.on 'exit', callback
+    childProcess.on 'exit', callback if callback
 
 
 module.exports = Mycha
