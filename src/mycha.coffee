@@ -35,13 +35,13 @@ class Mycha
       "--colors"
 
       # Include mycha test helper
-      "#{__dirname}/helper.coffee"
+      "#{__dirname}/helper.js"
 
       # Include files found in /test
       @getTestFiles().join(' ')
     ]
 
-    childProcess = child.spawn "#{__dirname}/node_modules/mocha/bin/mocha", args.join ' '
+    childProcess = child.spawn "#{__dirname}/../node_modules/mocha/bin/mocha", args.join ' '
     childProcess.stdout.pipe @stdout
     childProcess.stderr.pipe @stderr
     childProcess.on 'exit', callback if callback

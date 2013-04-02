@@ -1,9 +1,9 @@
 {
   "name": "mycha",
   "version": "0.0.3",
-  "main": "mycha.js",
+  "main": "lib/mycha.js",
   "bin": {
-    "mycha": "mycha.bin.js"
+    "mycha": "lib/mycha.bin.js"
   },
   "dependencies": {
     "chai": "latest",

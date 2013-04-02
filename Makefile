@@ -1,5 +1,5 @@
 all:
-	coffee -b -o . -c src/
+	coffee -b -o lib -c src/
 	echo "#!/usr/bin/env node" > tmp
-	cat mycha.bin.js >> tmp
-	mv tmp mycha.bin.js
+	cat lib/mycha.bin.js >> tmp
+	mv tmp lib/mycha.bin.js
