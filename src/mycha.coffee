@@ -30,18 +30,18 @@ class Mycha
   run: (callback) ->
     args = [
       # Set mocha options
-      "--compilers coffee:coffee-script"
-      "--reporter #{@reporter}"
+      "--compilers", "coffee:coffee-script"
+      "--reporter", @reporter
       "--colors"
 
       # Include mycha test helper
       "#{__dirname}/helper.js"
-
-      # Include files found in /test
-      @getTestFiles().join(' ')
     ]
 
-    childProcess = child.spawn "#{__dirname}/../node_modules/mocha/bin/mocha", args.join ' '
+    # Include files found in /test
+    args = args.concat @getTestFiles()
+
+    childProcess = child.spawn "#{__dirname}/../node_modules/mocha/bin/mocha", args
     childProcess.stdout.pipe @stdout
     childProcess.stderr.pipe @stderr
     childProcess.on 'exit', callback if callback
