@@ -9,6 +9,7 @@ class Mycha
     @stderr = options.stdin or process.stderr
     @reporter = options.reporter or 'dot'
     @testDir = path.join projectDir, 'test'
+    @mochaArgs = options.mochaArgs or []
 
 
   getTestFiles: ->
@@ -37,6 +38,9 @@ class Mycha
       # Include mycha test helper
       "#{__dirname}/helper.js"
     ]
+
+    # Include args passed mochaArgs
+    args = args.concat @mochaArgs
 
     # Include files found in /test
     args = args.concat @getTestFiles()
