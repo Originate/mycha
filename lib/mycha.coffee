@@ -36,7 +36,7 @@ class Mycha
       "--colors"
 
       # Include mycha test helper
-      "#{__dirname}/helper.js"
+      "#{__dirname}/helper.coffee"
     ]
 
     # Include args passed mochaArgs

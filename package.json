@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "main": "lib/mycha.js",
   "bin": {
-    "mycha": "lib/mycha.bin.js"
+    "mycha": "mycha.bin.js"
   },
   "dependencies": {
     "chai": "latest",
