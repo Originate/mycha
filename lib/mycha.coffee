@@ -9,7 +9,18 @@ class Mycha
     @stderr = options.stdin or process.stderr
     @reporter = options.reporter or 'dot'
     @testDir = path.join projectDir, 'test'
-    @mochaArgs = options.mochaArgs or []
+    @setMochaArguments(options)
+
+
+  setMochaArguments: (options) ->
+    @mochaArgs = []
+    @mochaArgs.push '-w' if options.watch
+    @mochaArgs.push '--reporter', options.reporter if options.reporter
+    @mochaArgs.push '--timeout', options.timeout if options.timeout
+    for argument_name, argument_value of options.mocha
+      return if argument_value is false
+      @mochaArgs.push "--#{argument_name}"
+      @mochaArgs.push argument_value if argument_value is true
 
 
   getTestFiles: ->
