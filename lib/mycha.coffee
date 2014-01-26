@@ -1,8 +1,7 @@
 Mocha = require 'mocha'
-fs = require 'fs'
-path = require 'path'
 child = require 'child_process'
 _ = require 'underscore'
+TestsFinder = require './tests_finder'
 
 
 class Mycha
@@ -21,22 +20,6 @@ class Mycha
     @options = _(options).defaults default_options
 
 
-  getTestFiles: ->
-    files = []
-    helper = (dir, files) ->
-      for file in fs.readdirSync(dir)
-        continue if file[0] == '.'
-        filePath = path.resolve "#{dir}/#{file}"
-        stat = fs.statSync filePath
-        if stat.isFile()
-          files.push filePath
-        else if stat.isDirectory()
-          helper filePath, files
-
-    helper.call helper, @options.testDir, files
-    files
-
-
   run: (callback) ->
     args = [
       # Set mocha options
@@ -52,7 +35,7 @@ class Mycha
     args = args.concat @options.mochaArgs
 
     # Include files found in /test
-    args = args.concat @getTestFiles()
+    result.mochaArgs = result.mochaArgs.concat new TestsFinder(result.testDir).files()
 
     childProcess = child.spawn "#{__dirname}/../node_modules/mocha/bin/mocha", args
     childProcess.stdout.pipe @options.stdout
