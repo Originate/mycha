@@ -10,13 +10,12 @@ class TestsFinder
 
   # Returns the name of all files within the given directory that contain tests.
   files: ->
-    files = []
-    @_search_directory @directory, files
-    files
+    @_search_directory @directory, []
 
 
+  # Adds all test files in the current directory and its subdirectories
+  # to the given files array.
   _search_directory: (dir, files) ->
-    # TODO: make this return files, instead of using a param for that.
     for file in fs.readdirSync(dir)
       continue if @_is_hidden file
       filePath = path.resolve "#{dir}/#{file}"
@@ -26,6 +25,7 @@ class TestsFinder
         files.push filePath
       else if stat.isDirectory()
         @_search_directory filePath, files
+    files
 
 
   # Returns whether the given filesystem object is hidden.
