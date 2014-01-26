@@ -27,7 +27,7 @@ describe 'TestsFinder', ->
     expect(@test_files).to.not.include_test_file '.hidden_test.coffee'
 
   it "ignores files whose name doesn't end in _test", ->
-    expect(@test_files).to.not.include_test_file 'helper_file.coffee'
+    expect(@test_files).to.not.include_test_file 'test_helper.coffee'
 
   it 'ignores non-code files that end in _test.*', ->
     expect(@test_files).to.not.include_test_file 'image_test.png'
