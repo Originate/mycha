@@ -41,7 +41,7 @@ describe 'Mycha', ->
           reporter: 'custom reporter'
           testDir: 'test/test_data'
           mochaArgs: 'custom mochaArgs'
-        @options = new Mycha(null, user_options).options
+        @options = new Mycha(user_options).options
 
 
       it 'uses the custom stdout', ->
@@ -72,7 +72,7 @@ describe 'Mycha', ->
 
 
     it 'appends the test files to the mochaArgs', ->
-      @options = new Mycha(null, testDir: 'test/test_data').options
+      @options = new Mycha(testDir: 'test/test_data').options
       expect(@options.mochaArgs).to.include_test_file 'javascript_test.js'
       expect(@options.mochaArgs).to.include_test_file 'dir/test_in_directory_test.coffee'
 

@@ -28,7 +28,7 @@ class Mycha
     ]
 
 
-  constructor: (projectDir, user_options={}) ->
+  constructor: (user_options={}) ->
 
     # The options to use by this instance.
     @options = @_calculate_final_options user_options
