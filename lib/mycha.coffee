@@ -2,16 +2,23 @@ Mocha = require 'mocha'
 fs = require 'fs'
 path = require 'path'
 child = require 'child_process'
+_ = require 'underscore'
 
 
 class Mycha
 
   constructor: (projectDir, options={}) ->
-    @stdout = options.stdout or process.stdout
-    @stderr = options.stdin or process.stderr
-    @reporter = options.reporter or 'dot'
-    @testDir = path.join projectDir, 'test'
-    @mochaArgs = options.mochaArgs or []
+
+    # The default options that are used if none are provided by the user.
+    default_options =
+      stdout: process.stdout
+      stderr: process.stderr
+      reporter: 'dot'
+      testDir: 'test'
+      mochaArgs: []
+
+    # The actually used options user provided + defaults.
+    @options = _(options).defaults default_options
 
 
   getTestFiles: ->
@@ -26,7 +33,7 @@ class Mycha
         else if stat.isDirectory()
           helper filePath, files
 
-    helper.call helper, @testDir, files
+    helper.call helper, @options.testDir, files
     files
 
 
@@ -34,7 +41,7 @@ class Mycha
     args = [
       # Set mocha options
       "--compilers", "coffee:coffee-script"
-      "--reporter", @reporter
+      "--reporter", @options.reporter
       "--colors"
 
       # Include mycha test helper
@@ -42,14 +49,14 @@ class Mycha
     ]
 
     # Include args passed mochaArgs
-    args = args.concat @mochaArgs
+    args = args.concat @options.mochaArgs
 
     # Include files found in /test
     args = args.concat @getTestFiles()
 
     childProcess = child.spawn "#{__dirname}/../node_modules/mocha/bin/mocha", args
-    childProcess.stdout.pipe @stdout
-    childProcess.stderr.pipe @stderr
+    childProcess.stdout.pipe @options.stdout
+    childProcess.stderr.pipe @options.stderr
     childProcess.on 'exit', callback if callback
 
 
