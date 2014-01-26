@@ -18,23 +18,31 @@ class TestsFinder
   _search_directory: (dir, files) ->
     # TODO: make this return files, instead of using a param for that.
     for file in fs.readdirSync(dir)
-
-      # Ignore hidden stuff.
-      continue if file[0] == '.'
-
+      continue if @_is_hidden file
       filePath = path.resolve "#{dir}/#{file}"
       stat = fs.statSync filePath
       if stat.isFile()
-
-        # Ignore non-test code files.
-        continue unless file.match /^.*_test\.[^\.]+$/
-
-        # Ignore non-code files.
-        continue unless file.match /(js|coffee)$/
-
+        continue unless @_is_test_file file
         files.push filePath
       else if stat.isDirectory()
         @_search_directory filePath, files
+
+
+  # Returns whether the given filesystem object is hidden.
+  _is_hidden: (file) ->
+    file[0] == '.'
+
+
+  # Returns whether the file with the given filename contains unit tests.
+  _is_test_file: (file) ->
+
+    # Ignore non-test code files.
+    return false unless file.match /^.*_test\.[^\.]+$/
+
+    # Ignore non-code files.
+    return false unless file.match /(js|coffee)$/
+
+    true
 
 
 
