@@ -3,7 +3,9 @@ fs = require 'fs'
 path = require 'path'
 child = require 'child_process'
 
+
 class Mycha
+
   constructor: (projectDir, options={}) ->
     @stdout = options.stdout or process.stdout
     @stderr = options.stdin or process.stderr
@@ -49,6 +51,7 @@ class Mycha
     childProcess.stdout.pipe @stdout
     childProcess.stderr.pipe @stderr
     childProcess.on 'exit', callback if callback
+
 
 
 module.exports = Mycha
