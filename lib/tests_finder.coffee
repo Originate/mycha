@@ -37,7 +37,7 @@ class TestsFinder
   _is_test_file: (file) ->
 
     # Ignore non-test code files.
-    return false unless file.match /^.*_test\.[^\.]+$/
+    return false unless file.match /_test\.[^\.]+$/
 
     # Ignore non-code files.
     return false unless file.match /(js|coffee)$/

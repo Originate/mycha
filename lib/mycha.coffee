@@ -55,7 +55,8 @@ class Mycha
 
 
   run: (callback) ->
-    childProcess = child.spawn "#{__dirname}/../node_modules/mocha/bin/mocha", args
+    childProcess = child.spawn "#{__dirname}/../node_modules/mocha/bin/mocha",
+                               @options
     childProcess.stdout.pipe @options.stdout
     childProcess.stderr.pipe @options.stderr
     childProcess.on 'exit', callback if callback
