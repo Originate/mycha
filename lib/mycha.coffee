@@ -18,9 +18,9 @@ class Mycha
     @mochaArgs.push '--reporter', options.reporter if options.reporter
     @mochaArgs.push '--timeout', options.timeout if options.timeout
     for argument_name, argument_value of options.mocha
-      return if argument_value is false
+      continue if argument_value is false
       @mochaArgs.push "--#{argument_name}"
-      @mochaArgs.push argument_value if argument_value is true
+      @mochaArgs.push argument_value if argument_value isnt true
 
 
   getTestFiles: ->
