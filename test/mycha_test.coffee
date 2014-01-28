@@ -52,6 +52,8 @@ describe 'Mycha', ->
 
       it 'uses the custom reporter', ->
         expect(@options.reporter).to.equal 'custom reporter'
+        expect(@options.mochaArgs).to.include 'custom reporter'
+        expect(@options.mochaArgs).to.not.include 'dots'
 
       it 'uses the custom testDir', ->
         expect(@options.testDir).to.equal 'test/test_data'
