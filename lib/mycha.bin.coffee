@@ -4,7 +4,7 @@ commands =
   help: "Shows this help page"
 
 usage_text = """
-                Usage: mycha <action> [options]
+                Usage: mycha <command> [options]
 
                 where <command> is one of:
                 #{("  #{command_name} - #{command_desc}" for command_name, command_desc of commands).join("\n")}
