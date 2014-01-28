@@ -16,11 +16,11 @@ class Mycha
 
   # The default Mocha arguments.
   # These are augmented by user-provided mocha arguments.
-  @default_mocha_args = [
-
+  @default_mocha_args = (options) ->
+    [
       # Set mocha options
       "--compilers", "coffee:coffee-script"
-      "--reporter", @default_options.reporter
+      "--reporter", options.reporter
       "--colors"
 
       # Include mycha test helper
@@ -46,7 +46,7 @@ class Mycha
 
     # Calculate the Mocha arguments.
     result.mochaArgs ?= []
-    result.mochaArgs = result.mochaArgs.concat Mycha.default_mocha_args
+    result.mochaArgs = result.mochaArgs.concat Mycha.default_mocha_args(result)
 
     # Include files found in /test
     result.mochaArgs = result.mochaArgs.concat new TestsFinder(result.testDir).files()
