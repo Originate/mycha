@@ -33,5 +33,5 @@ options = argv
 options.watch = command is 'watch'
 
 Mycha = require __dirname + '/mycha'
-mycha = new Mycha process.cwd(), options
+mycha = new Mycha options
 mycha.run()

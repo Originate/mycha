@@ -1,65 +1,66 @@
 Mocha = require 'mocha'
-fs = require 'fs'
-path = require 'path'
 child = require 'child_process'
+_ = require 'underscore'
+TestsFinder = require './tests_finder'
+
 
 class Mycha
-  constructor: (projectDir, options={}) ->
-    @stdout = options.stdout or process.stdout
-    @stderr = options.stdin or process.stderr
-    @reporter = options.reporter or 'dot'
-    @testDir = path.join projectDir, 'test'
-    @setMochaArguments(options)
 
+  # The default options to use.
+  # These options can be overridden by the user using command-line arguments.
+  @default_options =
+    stdout: process.stdout
+    stderr: process.stderr
+    reporter: 'dot'
+    testDir: 'test'
 
-  setMochaArguments: (options) ->
-    @mochaArgs = []
-    @mochaArgs.push '-w' if options.watch
-    @mochaArgs.push '--reporter', options.reporter if options.reporter
-    @mochaArgs.push '--timeout', options.timeout if options.timeout
-    for argument_name, argument_value of options.mocha
-      continue if argument_value is false
-      @mochaArgs.push "--#{argument_name}"
-      @mochaArgs.push argument_value if argument_value isnt true
-
-
-  getTestFiles: ->
-    files = []
-    helper = (dir, files) ->
-      for file in fs.readdirSync(dir)
-        continue if file[0] == '.'
-        filePath = path.resolve "#{dir}/#{file}"
-        stat = fs.statSync filePath
-        if stat.isFile()
-          files.push filePath
-        else if stat.isDirectory()
-          helper filePath, files
-
-    helper.call helper, @testDir, files
-    files
-
-
-  run: (callback) ->
-    args = [
+  # The default Mocha arguments.
+  # These are augmented by user-provided mocha arguments.
+  @default_mocha_args = (options) ->
+    [
       # Set mocha options
       "--compilers", "coffee:coffee-script"
-      "--reporter", @reporter
+      "--reporter", options.reporter
       "--colors"
 
       # Include mycha test helper
       "#{__dirname}/helper.coffee"
     ]
 
-    # Include args passed mochaArgs
-    args = args.concat @mochaArgs
+
+  constructor: (currentDir, user_options={}) ->
+
+    # The options to use by this instance.
+    @options = @_calculate_final_options user_options
+
+
+  # Determines the options to be used by Mycha.
+  #
+  # * user provided options
+  # * default options
+  # * test files
+  _calculate_final_options: (user_options) ->
+
+    # Merge user and default options.
+    result = _(user_options).defaults Mycha.default_options
+
+    # Calculate the Mocha arguments.
+    result.mochaArgs ?= []
+    result.mochaArgs = result.mochaArgs.concat Mycha.default_mocha_args(result)
 
     # Include files found in /test
-    args = args.concat @getTestFiles()
+    result.mochaArgs = result.mochaArgs.concat new TestsFinder(result.testDir).files()
 
-    childProcess = child.spawn "#{__dirname}/../node_modules/mocha/bin/mocha", args
-    childProcess.stdout.pipe @stdout
-    childProcess.stderr.pipe @stderr
+    result
+
+
+  run: (callback) ->
+    childProcess = child.spawn "#{__dirname}/../node_modules/mocha/bin/mocha",
+                               @options.mochaArgs
+    childProcess.stdout.pipe @options.stdout
+    childProcess.stderr.pipe @options.stderr
     childProcess.on 'exit', callback if callback
+
 
 
 module.exports = Mycha
