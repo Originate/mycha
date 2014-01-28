@@ -28,7 +28,7 @@ describe 'Mycha', ->
         expect(@options.testDir).to.equal Mycha.default_options.testDir
 
       it 'uses the default mochaArgs', ->
-        for default_mocha_arg in Mycha.default_mocha_args
+        for default_mocha_arg in Mycha.default_mocha_args(Mycha.default_options)
           expect(@options.mochaArgs).to.include default_mocha_arg
 
 
@@ -41,7 +41,7 @@ describe 'Mycha', ->
           reporter: 'custom reporter'
           testDir: 'test/test_data'
           mochaArgs: 'custom mochaArgs'
-        @options = new Mycha(user_options).options
+        @options = new Mycha(null, user_options).options
 
 
       it 'uses the custom stdout', ->
@@ -64,15 +64,15 @@ describe 'Mycha', ->
     context 'user gives empty mochaArgs', ->
 
       beforeEach ->
-        @options = new Mycha(mochaArgs: []).options
+        @options = new Mycha(null, mochaArgs: []).options
 
       it 'uses the default mochaArgs', ->
-        for default_mocha_arg in Mycha.default_mocha_args
+        for default_mocha_arg in Mycha.default_mocha_args(Mycha.default_options)
           expect(@options.mochaArgs).to.include default_mocha_arg
 
 
     it 'appends the test files to the mochaArgs', ->
-      @options = new Mycha(testDir: 'test/test_data').options
+      @options = new Mycha(null, testDir: 'test/test_data').options
       expect(@options.mochaArgs).to.include_test_file 'javascript_test.js'
       expect(@options.mochaArgs).to.include_test_file 'dir/test_in_directory_test.coffee'
 
