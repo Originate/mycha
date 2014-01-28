@@ -28,7 +28,7 @@ class Mycha
     ]
 
 
-  constructor: (user_options={}) ->
+  constructor: (currentDir, user_options={}) ->
 
     # The options to use by this instance.
     @options = @_calculate_final_options user_options
@@ -56,7 +56,7 @@ class Mycha
 
   run: (callback) ->
     childProcess = child.spawn "#{__dirname}/../node_modules/mocha/bin/mocha",
-                               @options
+                               @options.mochaArgs
     childProcess.stdout.pipe @options.stdout
     childProcess.stderr.pipe @options.stderr
     childProcess.on 'exit', callback if callback
