@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "chai": "latest",
-    "coffee-script": "latest",
+    "coffee-script": "1.6.3",
     "mocha": "latest",
     "optimist": "latest",
     "sinon": "latest",
