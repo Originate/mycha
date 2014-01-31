@@ -13,9 +13,11 @@ describe 'TestsFinder', ->
 
   it 'finds javascript tests', ->
     expect(@test_files).to.include_test_file 'javascript_test.js'
+    expect(@test_files).to.include_test_file 'javascript_spec.js'
 
   it 'finds coffeescript tests', ->
     expect(@test_files).to.include_test_file 'root_level_test.coffee'
+    expect(@test_files).to.include_test_file 'root_level_spec.coffee'
 
   it 'traverses subdirectories', ->
     expect(@test_files).to.include_test_file 'dir/test_in_directory_test.coffee'
