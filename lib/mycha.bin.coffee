@@ -34,4 +34,5 @@ options.watch = command is 'watch'
 
 Mycha = require __dirname + '/mycha'
 mycha = new Mycha options
-mycha.run()
+mycha.run (exit_code) ->
+  process.exit exit_code
