@@ -13,7 +13,7 @@ run_mycha = ({ test_dir, args }) ->
 
 
 
-describe 'Mycha integration test:', ->
+context 'Mycha integration tests:', ->
 
   describe 'failing test', ->
     it 'returns status code 1', (done) ->
