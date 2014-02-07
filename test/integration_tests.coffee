@@ -15,6 +15,12 @@ run_mycha = ({ test_dir, args }) ->
 
 describe 'Integration tests', ->
 
+  it 'sets NODE_ENV to test', (done) ->
+    mycha_process = run_mycha test_dir: 'node_env_test', args: ['run']
+    mycha_process.on 'close', (exit_code) ->
+      expect(exit_code).to.equal 0
+      done()
+
   context 'with failing tests', ->
     it 'returns status code 1', (done) ->
       mycha_process = run_mycha test_dir: 'failing_test', args: ['run']
