@@ -13,18 +13,18 @@ run_mycha = ({ test_dir, args }) ->
 
 
 
-context 'Mycha integration tests:', ->
+describe 'Integration tests', ->
 
-  describe 'failing test', ->
+  context 'with failing tests', ->
     it 'returns status code 1', (done) ->
-      mycha = run_mycha test_dir: 'failing_test', args: ['run']
-      mycha.on 'close', (exit_code) ->
+      mycha_process = run_mycha test_dir: 'failing_test', args: ['run']
+      mycha_process.on 'close', (exit_code) ->
         expect(exit_code).to.equal 1
         done()
 
-  describe 'passing test', ->
+  context 'with passing tests', ->
     it 'returns status code 0', (done) ->
-      mycha = run_mycha test_dir: 'passing_test', args: ['run']
-      mycha.on 'close', (exit_code) ->
+      mycha_process = run_mycha test_dir: 'passing_test', args: ['run']
+      mycha_process.on 'close', (exit_code) ->
         expect(exit_code).to.equal 0
         done()
