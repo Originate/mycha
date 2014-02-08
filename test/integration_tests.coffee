@@ -22,15 +22,22 @@ describe 'Integration tests', ->
       done()
 
   context 'with failing tests', ->
-    it 'returns status code 1', (done) ->
+
+    beforeEach (done) ->
       mycha_process = run_mycha test_dir: 'failing_test', args: ['run']
-      mycha_process.on 'close', (exit_code) ->
-        expect(exit_code).to.equal 1
+      mycha_process.on 'close', (@exit_code) =>
         done()
 
+    it 'returns status code 1', ->
+      expect(@exit_code).to.equal 1
+
   context 'with passing tests', ->
-    it 'returns status code 0', (done) ->
+
+    beforeEach (done) ->
       mycha_process = run_mycha test_dir: 'passing_test', args: ['run']
-      mycha_process.on 'close', (exit_code) ->
-        expect(exit_code).to.equal 0
+      mycha_process.on 'close', (@exit_code) =>
         done()
+
+    it 'returns status code 0', ->
+      expect(@exit_code).to.equal 0
+
