@@ -11,17 +11,18 @@ describe 'return code', ->
   context 'with failing tests', ->
 
     beforeEach (done) ->
-      mycha_process = run_mycha test_dir: 'integration_tests/failing_test', args: ['run']
+      mycha_process = run_mycha test_dir: 'return_code_tests/failing_test', args: ['run']
       mycha_process.on 'close', (@exit_code) =>
         done()
 
     it 'returns status code 1', ->
       expect(@exit_code).to.equal 1
 
+
   context 'with passing tests', ->
 
     beforeEach (done) ->
-      mycha_process = run_mycha test_dir: 'integration_tests/passing_test', args: ['run']
+      mycha_process = run_mycha test_dir: 'return_code_tests/passing_test', args: ['run']
       mycha_process.on 'close', (@exit_code) =>
         done()
 
