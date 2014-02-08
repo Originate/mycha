@@ -2,6 +2,7 @@ chai = require 'chai'
 sinon = require 'sinon'
 chai.use require 'sinon-chai'
 expect = chai.expect
+require './test_helper'
 
 
 describe 'NODE_ENV', ->

@@ -4,6 +4,7 @@ chai.use require 'sinon-chai'
 child = require 'child_process'
 path = require 'path'
 expect = chai.expect
+require './test_helper'
 
 
 describe 'return code', ->
