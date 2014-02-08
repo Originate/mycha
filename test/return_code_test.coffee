@@ -11,7 +11,7 @@ describe 'return code', ->
   context 'with failing tests', ->
 
     beforeEach (done) ->
-      mycha_process = run_mycha test_dir: 'failing_test', args: ['run']
+      mycha_process = run_mycha test_dir: 'integration_tests/failing_test', args: ['run']
       mycha_process.on 'close', (@exit_code) =>
         done()
 
@@ -21,7 +21,7 @@ describe 'return code', ->
   context 'with passing tests', ->
 
     beforeEach (done) ->
-      mycha_process = run_mycha test_dir: 'passing_test', args: ['run']
+      mycha_process = run_mycha test_dir: 'integration_tests/passing_test', args: ['run']
       mycha_process.on 'close', (@exit_code) =>
         done()
 
