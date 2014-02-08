@@ -14,6 +14,7 @@ class Mycha
     reporter: 'dot'
     testDir: 'test'
 
+
   # The default Mocha arguments.
   # These are augmented by user-provided mocha arguments.
   @default_mocha_args = (options) ->
