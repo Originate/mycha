@@ -1,16 +1,7 @@
 chai = require 'chai'
 sinon = require 'sinon'
 chai.use require 'sinon-chai'
-child = require 'child_process'
-path = require 'path'
 expect = chai.expect
-
-
-run_mycha = ({ test_dir, args }) ->
-  cwd = path.join __dirname, 'integration_tests', test_dir
-  mycha_path = path.resolve __dirname, '../bin/mycha'
-  child.spawn mycha_path, args, cwd: cwd
-
 
 
 describe 'Integration tests', ->
