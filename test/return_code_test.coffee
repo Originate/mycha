@@ -1,8 +1,6 @@
 chai = require 'chai'
 sinon = require 'sinon'
 chai.use require 'sinon-chai'
-child = require 'child_process'
-path = require 'path'
 expect = chai.expect
 require './test_helper'
 
@@ -29,5 +27,3 @@ describe 'return code', ->
 
     it 'returns status code 0', ->
       expect(@exit_code).to.equal 0
-
-
