@@ -1,7 +1,10 @@
 TestsFinder = require './tests_finder'
 
 
-# Knows which test files Mycha should provide to Mocha.
+# Parses the file-related options out of the given argv,
+# augments them with default values,
+# represents them in a user-friendly way,
+# and provides all the resulting test files to Mycha.
 class FileConfiguration
 
   constructor: ({test_dir, default_files, argv}) ->
