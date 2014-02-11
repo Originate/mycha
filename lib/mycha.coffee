@@ -1,9 +1,13 @@
-Mocha = require 'mocha'
 child = require 'child_process'
+jath = require 'path'
 _ = require 'underscore'
 TestsFinder = require './tests_finder'
+MychaConfiguration = require './mycha_configuration'
+MochaConfiguration = require './mocha_configuration'
+FileConfiguration = require './file_configuration'
 
 
+# The main class. Performs the Mycha functionality.
 class Mycha
 
   # Default configuration options for Mycha.
@@ -20,35 +24,32 @@ class Mycha
     colors: yes
 
 
-  constructor: (currentDir, user_options={}) ->
   # Any files that Mocha should always load, in addition to the test files.
   @default_files = [
     # The Mycha test helper
     "#{__dirname}/helper.coffee"
   ]
 
-    # The options to use by this instance.
-    @options = @_calculate_final_options user_options
+
+  # parameters:
+  # - argv: argument values provided by Optimist.
+  constructor: (argv) ->
+
+    # The options to configure this Mycha instance.
+    @mycha_configuration = new MychaConfiguration Mycha.default_mycha_options,
+                                                  argv
+
+    # The options to provide to Mocha.
+    @mocha_configuration = new MochaConfiguration Mycha.default_mocha_options,
+                                                  argv
+
+    # The JS/CS files to provide to Mocha.
+    @file_configuration = new FileConfiguration
+      test_dir: @mycha_configuration.options.testDir
+      default_files: Mycha.default_files
+      argv: argv
 
 
-  # Determines the options to be used by Mycha.
-  #
-  # * user provided options
-  # * default options
-  # * test files
-  _calculate_final_options: (user_options) ->
-
-    # Merge user and default options.
-    result = _(user_options).defaults Mycha.default_options
-
-    # Calculate the Mocha arguments.
-    result.mochaArgs ?= []
-    result.mochaArgs = result.mochaArgs.concat Mycha.default_mocha_args(result)
-
-    # Include files found in /test
-    result.mochaArgs = result.mochaArgs.concat new TestsFinder(result.testDir).files()
-
-    result
   get_mocha_args: ->
     @mocha_configuration.to_args().concat @file_configuration.to_args()
 
