@@ -12,8 +12,9 @@ describe 'MochaConfiguration', ->
   context 'no user options given', ->
 
     beforeEach ->
+      @argv = create_argv()
       @mocha_configuration = new MochaConfiguration Mycha.default_mocha_options,
-                                                    create_argv()
+                                                    @argv
 
     it 'uses CoffeeScript as the default compiler', ->
       expect(@mocha_configuration.options.compilers).to.equal 'coffee:coffee-script'
@@ -28,6 +29,9 @@ describe 'MochaConfiguration', ->
       expect(@mocha_configuration.options).to.not.have.property '_'
       expect(@mocha_configuration.options).to.not.have.property '$0'
 
+    it 'does not change the given argv parameter', ->
+      expect(@argv).to.have.property '_'
+      expect(@argv).to.have.property '$0'
 
   context 'user options given', ->
 

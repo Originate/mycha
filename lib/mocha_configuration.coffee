@@ -12,7 +12,10 @@ class MochaConfiguration
   constructor: (default_mocha_options, argv) ->
 
     # The final Mocha options to use.
-    @options = _(argv).defaults default_mocha_options
+    @options = _.chain(argv)
+                .defaults(default_mocha_options)
+                .clone()
+                .value()
     delete @options._
     delete @options['$0']
 
