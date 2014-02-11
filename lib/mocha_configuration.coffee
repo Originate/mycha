@@ -12,12 +12,23 @@ class MochaConfiguration
   constructor: (default_mocha_options, argv) ->
 
     # The final Mocha options to use.
-    @options = _.chain(argv)
-                .defaults(default_mocha_options)
-                .clone()
-                .value()
-    delete @options._
-    delete @options['$0']
+    @options = @remove_optimist_elements @merge_options(argv,
+                                                        default_mocha_options)
+
+
+  # Removes the elements of argv that Optimist adds.
+  remove_optimist_elements: (options) ->
+    delete options._
+    delete options['$0']
+    options
+
+
+  # Augments the given command-line option with the given default values.
+  merge_options: (argv, default_options) ->
+    _.chain(argv)
+     .clone()
+     .defaults(default_options)
+     .value()
 
 
   # Serializes this data into a format so that it can be given to

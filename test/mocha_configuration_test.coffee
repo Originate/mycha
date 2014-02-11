@@ -59,6 +59,43 @@ describe 'MochaConfiguration', ->
         expect(@mocha_configuration.options).to.not.have.property '$0'
 
 
+  describe 'merge_options', ->
+
+    beforeEach ->
+      user_options =
+        stdout: 'custom stdout'
+        stderr: 'custom stderr'
+        reporter: 'custom reporter'
+        testDir: 'test/test_data'
+        compilers: 'foo:bar'
+      mocha_configuration = new MochaConfiguration Mycha.default_mocha_options,
+                                                   create_argv()
+      @argv = create_argv options: user_options
+      @result = mocha_configuration.merge_options @argv,
+                                                  Mycha.default_mocha_options
+
+    it 'uses the user-provided compiler', ->
+      expect(@result.compilers).to.equal 'foo:bar'
+
+    it 'uses the user-provided reporter', ->
+      expect(@result.reporter).to.equal 'custom reporter'
+
+
+  describe 'remove_optimist_elements', ->
+
+    beforeEach ->
+      mocha_configuration = new MochaConfiguration Mycha.default_mocha_options,
+                                                   create_argv()
+      @result = mocha_configuration.remove_optimist_elements create_argv()
+
+    it 'removes the command-line arguments', ->
+      expect(@result).to.not.have.property '_'
+
+    it 'removes the application name element', ->
+      expect(@result).to.not.have.property '$0'
+
+
+
   describe 'to_args', ->
 
     it 'returns an array of strings', ->
