@@ -11,7 +11,7 @@ describe 'MochaConfiguration', ->
 
   describe 'constructor', ->
 
-    context 'with no user options given', ->
+    context 'without user options', ->
 
       beforeEach ->
         @argv = create_argv()
@@ -36,7 +36,7 @@ describe 'MochaConfiguration', ->
         expect(@argv).to.have.property '$0'
 
 
-    context 'with user options given', ->
+    context 'with user options', ->
 
       beforeEach ->
         user_options =
