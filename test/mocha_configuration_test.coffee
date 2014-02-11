@@ -12,7 +12,8 @@ describe 'MochaConfiguration', ->
   context 'no user options given', ->
 
     beforeEach ->
-      @mocha_configuration = new MochaConfiguration Mycha.default_mocha_options
+      @mocha_configuration = new MochaConfiguration Mycha.default_mocha_options,
+                                                    create_argv()
 
     it 'uses CoffeeScript as the default compiler', ->
       expect(@mocha_configuration.options.compilers).to.equal 'coffee:coffee-script'
@@ -22,6 +23,10 @@ describe 'MochaConfiguration', ->
 
     it 'shows colors', ->
       expect(@mocha_configuration.options.colors).to.be.true
+
+    it 'does not contain the Optimist-specific elements', ->
+      expect(@mocha_configuration.options).to.not.have.property '_'
+      expect(@mocha_configuration.options).to.not.have.property '$0'
 
 
   context 'user options given', ->
@@ -34,7 +39,7 @@ describe 'MochaConfiguration', ->
         testDir: 'test/test_data'
         compilers: 'foo:bar'
       @mocha_configuration = new MochaConfiguration Mycha.default_mocha_options,
-                                                    user_options
+                                                    create_argv(options: user_options)
 
     it 'uses the given compiler', ->
       expect(@mocha_configuration.options.compilers).to.equal 'foo:bar'
@@ -42,3 +47,6 @@ describe 'MochaConfiguration', ->
     it 'uses the given reporter', ->
       expect(@mocha_configuration.options.reporter).to.equal 'custom reporter'
 
+    it 'does not contain the Optimist-specific elements', ->
+      expect(@mocha_configuration.options).to.not.have.property '_'
+      expect(@mocha_configuration.options).to.not.have.property '$0'

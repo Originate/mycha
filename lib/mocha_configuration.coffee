@@ -1,13 +1,20 @@
 _ = require 'underscore'
 
 
-# Represents the configuration options for Mocha.
+# Parses the Mocha configuration values out of the given command-line arguments,
+# augments them with intelligent default values,
+# and represents them in a user-friendly way.
 class MochaConfiguration
 
-  constructor: (default_mocha_options, user_options = {}) ->
+  # Parameters:
+  # - default_mocha_options: the default mocha options (defined in mycha.coffee)
+  # - argv: the command-line arguments, as provided by Optimist
+  constructor: (default_mocha_options, argv) ->
 
     # The final Mocha options to use.
-    @options = _(user_options).defaults default_mocha_options
+    @options = _(argv).defaults default_mocha_options
+    delete @options._
+    delete @options['$0']
 
 
 
