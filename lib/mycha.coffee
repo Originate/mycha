@@ -1,5 +1,5 @@
 child = require 'child_process'
-jath = require 'path'
+path = require 'path'
 _ = require 'underscore'
 TestsFinder = require './tests_finder'
 MychaConfiguration = require './mycha_configuration'

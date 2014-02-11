@@ -12,15 +12,6 @@ usage_text = """
 
 argv = require('optimist')
   .usage(usage_text)
-  .options 'reporter',
-    alias: 'R'
-    default: 'spec'
-    describe: 'specify the reporter to use'
-  .options 'timeout',
-    alias: 't'
-    default: '2000'
-    describe: 'set test-case timeout in milliseconds'
-  .describe('mocha.[mocha option]', 'Pass in mocha options (ex. --mocha.grep <pattern>)')
   .check (argv) ->
     command = argv._[0]
     throw "Missing command." unless command?
@@ -28,11 +19,7 @@ argv = require('optimist')
     throw "" if command is 'help'
   .argv
 
-command = argv._[0]
-options = argv
-options.watch = command is 'watch'
-
 Mycha = require __dirname + '/mycha'
-mycha = new Mycha options
+mycha = new Mycha argv
 mycha.run (exit_code) ->
   process.exit exit_code
