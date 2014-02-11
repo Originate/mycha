@@ -6,30 +6,26 @@ TestsFinder = require './tests_finder'
 
 class Mycha
 
-  # The default options to use.
-  # These options can be overridden by the user using command-line arguments.
-  @default_options =
+  # Default configuration options for Mycha.
+  @default_mycha_options =
     stdout: process.stdout
     stderr: process.stderr
-    reporter: 'dot'
     testDir: 'test'
 
 
-  # The default Mocha arguments.
-  # These are augmented by user-provided mocha arguments.
-  @default_mocha_args = (options) ->
-    [
-      # Set mocha options
-      "--compilers", "coffee:coffee-script"
-      "--reporter", options.reporter
-      "--colors"
-
-      # Include mycha test helper
-      "#{__dirname}/helper.coffee"
-    ]
+  # Default configuration options for Mocha.
+  @default_mocha_options =
+    compilers: "coffee:coffee-script"
+    reporter: 'dot'
+    colors: yes
 
 
   constructor: (currentDir, user_options={}) ->
+  # Any files that Mocha should always load, in addition to the test files.
+  @default_files = [
+    # The Mycha test helper
+    "#{__dirname}/helper.coffee"
+  ]
 
     # The options to use by this instance.
     @options = @_calculate_final_options user_options
