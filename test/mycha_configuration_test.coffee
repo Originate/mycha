@@ -12,7 +12,8 @@ describe 'MychaConfiguration', ->
   context 'no user options given', ->
 
     beforeEach ->
-      @mycha_configuration = new MychaConfiguration Mycha.default_mycha_options
+      @mycha_configuration = new MychaConfiguration Mycha.default_mycha_options,
+                                                    create_argv()
 
     it 'uses the default stdout', ->
       expect(@mycha_configuration.options.stdout).to.equal Mycha.default_mycha_options.stdout
@@ -23,8 +24,9 @@ describe 'MychaConfiguration', ->
     it 'uses the default test directory', ->
       expect(@mycha_configuration.options.testDir).to.equal Mycha.default_mycha_options.testDir
 
-    it 'returns {} as remaining user options', ->
-      expect(@mycha_configuration.remaining_options).to.eql {}
+    it 'removes the used options', ->
+      for own key, value of Mycha.default_mycha_options
+        expect(@mycha_configuration.remaining_options).to.not.have.property key
 
 
   context 'user options given', ->
@@ -37,7 +39,7 @@ describe 'MychaConfiguration', ->
         testDir: 'test/test_data'
         foo: 'bar'
       @mycha_configuration = new MychaConfiguration Mycha.default_mycha_options,
-                                                    @user_options
+                                                    create_argv(options: @user_options)
 
 
     it 'uses the custom stdout', ->
