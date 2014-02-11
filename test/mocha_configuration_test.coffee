@@ -9,7 +9,7 @@ MochaConfiguration = require '../lib/mocha_configuration'
 
 describe 'MochaConfiguration', ->
 
-  context 'no user options given', ->
+  context 'with no user options given', ->
 
     beforeEach ->
       @argv = create_argv()
@@ -33,7 +33,8 @@ describe 'MochaConfiguration', ->
       expect(@argv).to.have.property '_'
       expect(@argv).to.have.property '$0'
 
-  context 'user options given', ->
+
+  context 'with user options given', ->
 
     beforeEach ->
       user_options =

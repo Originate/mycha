@@ -9,7 +9,7 @@ MychaConfiguration = require '../lib/mycha_configuration'
 
 describe 'MychaConfiguration', ->
 
-  context 'no user options given', ->
+  context 'with no user options given', ->
 
     beforeEach ->
       @mycha_configuration = new MychaConfiguration Mycha.default_mycha_options,
@@ -29,7 +29,7 @@ describe 'MychaConfiguration', ->
         expect(@mycha_configuration.remaining_options).to.not.have.property key
 
 
-  context 'user options given', ->
+  context 'with user options given', ->
 
     beforeEach ->
       @user_options =
