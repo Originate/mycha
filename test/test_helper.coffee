@@ -49,3 +49,16 @@ global.verify_failure = (test_dir, done) ->
     done()
 
 
+# Creates an Optimist argv object for testing.
+#
+# Parameters:
+# * options: hash with command-line options (the stuff that begins with '--')
+# * commands: array of command-line arguments given after the options
+global.create_argv = (options = {}) ->
+  {options, commands} = options
+  options ?= {}
+  commands ?= ['run']
+  result = {}
+  result._ = commands
+  result['$0'] = 'node ./bin/mycha'
+  _(result).extend options
