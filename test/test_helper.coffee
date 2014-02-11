@@ -28,7 +28,7 @@ chai.Assertion.addMethod 'include_test_file', (filename) ->
 # with tests in the given directory and
 # with the given arguments.
 global.run_mycha = ({ test_dir, args }) ->
-  cwd = path.join __dirname, test_dir
+  cwd = path.join process.cwd(), 'test_data', test_dir
   mycha_path = path.resolve __dirname, '../bin/mycha'
   child.spawn mycha_path, args, cwd: cwd
 

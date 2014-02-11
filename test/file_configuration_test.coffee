@@ -15,7 +15,7 @@ describe 'FileConfiguration', ->
 
       beforeEach ->
         @file_configuration = new FileConfiguration
-          test_dir: 'test/test_data'
+          test_dir: 'test_data/subdirectories'
           default_files: Mycha.default_files
           argv: create_argv()
 
@@ -23,15 +23,15 @@ describe 'FileConfiguration', ->
         expect(@file_configuration.files).to.include Mycha.default_files[0]
 
       it 'includes all files in the "test" directory', ->
-        expect(@file_configuration.files).to.include "#{__dirname}/test_data/javascript_test.js"
-        expect(@file_configuration.files).to.include "#{__dirname}/test_data/javascript_spec.js"
+        expect(@file_configuration.files).to.include "#{process.cwd()}/test_data/subdirectories/javascript_test.js"
+        expect(@file_configuration.files).to.include "#{process.cwd()}/test_data/subdirectories/javascript_spec.js"
 
 
     context 'custom test directory given', ->
 
       beforeEach ->
         @file_configuration = new FileConfiguration
-          test_dir: 'test/test_data'
+          test_dir: 'test_data/subdirectories'
           default_files: Mycha.default_files
           argv: create_argv()
 
@@ -39,7 +39,7 @@ describe 'FileConfiguration', ->
         expect(@file_configuration.files).to.include Mycha.default_files[0]
 
       it 'includes all files in the "test" directory', ->
-        expect(@file_configuration.files).to.include "#{__dirname}/test_data/javascript_test.js"
+        expect(@file_configuration.files).to.include "#{process.cwd()}/test_data/subdirectories/javascript_test.js"
 
 
 
@@ -60,7 +60,7 @@ describe 'FileConfiguration', ->
 
     beforeEach ->
       file_configuration = new FileConfiguration
-        test_dir: 'test/test_data'
+        test_dir: 'test_data/subdirectories/'
         default_files: Mycha.default_files
         argv: create_argv()
       @result = file_configuration.to_args()
@@ -69,10 +69,10 @@ describe 'FileConfiguration', ->
       expect(@result[0]).to.equal "#{process.cwd()}/lib/helper.coffee"
 
     it 'provides all test files', ->
-      expect(@result).to.include "#{process.cwd()}/test/test_data/javascript_test.js"
-      expect(@result).to.include "#{process.cwd()}/test/test_data/javascript_spec.js"
-      expect(@result).to.include "#{process.cwd()}/test/test_data/root_level_test.coffee"
-      expect(@result).to.include "#{process.cwd()}/test/test_data/root_level_spec.coffee"
-      expect(@result).to.include "#{process.cwd()}/test/test_data/dir/test_in_directory_test.coffee"
-      expect(@result).to.include "#{process.cwd()}/test/test_data/dir/subdir/test_in_subdirectory_test.coffee"
+      expect(@result).to.include "#{process.cwd()}/test_data/subdirectories/javascript_test.js"
+      expect(@result).to.include "#{process.cwd()}/test_data/subdirectories/javascript_spec.js"
+      expect(@result).to.include "#{process.cwd()}/test_data/subdirectories/root_level_test.coffee"
+      expect(@result).to.include "#{process.cwd()}/test_data/subdirectories/root_level_spec.coffee"
+      expect(@result).to.include "#{process.cwd()}/test_data/subdirectories/dir/test_in_directory_test.coffee"
+      expect(@result).to.include "#{process.cwd()}/test_data/subdirectories/dir/subdir/test_in_subdirectory_test.coffee"
 
