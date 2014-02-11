@@ -53,13 +53,15 @@ class Mycha
     result.mochaArgs = result.mochaArgs.concat new TestsFinder(result.testDir).files()
 
     result
+  get_mocha_args: ->
+    @mocha_configuration.to_args().concat @file_configuration.to_args()
 
 
   run: (callback) ->
-    childProcess = child.spawn "#{__dirname}/../node_modules/mocha/bin/mocha",
-                               @options.mochaArgs
-    childProcess.stdout.pipe @options.stdout
-    childProcess.stderr.pipe @options.stderr
+    childProcess = child.spawn path.resolve(__dirname, '../node_modules/mocha/bin/mocha'),
+                               @get_mocha_args()
+    childProcess.stdout.pipe @mycha_configuration.options.stdout
+    childProcess.stderr.pipe @mycha_configuration.options.stderr
     childProcess.on 'exit', callback if callback
 
 

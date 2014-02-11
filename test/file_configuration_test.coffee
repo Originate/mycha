@@ -56,3 +56,23 @@ describe 'FileConfiguration', ->
       it 'only runs the given test file'
 
 
+  describe 'to_args', ->
+
+    beforeEach ->
+      file_configuration = new FileConfiguration
+        test_dir: 'test/test_data'
+        default_files: Mycha.default_files
+        argv: create_argv()
+      @result = file_configuration.to_args()
+
+    it 'loads the Mycha helper first', ->
+      expect(@result[0]).to.equal "#{process.cwd()}/lib/helper.coffee"
+
+    it 'provides all test files', ->
+      expect(@result).to.include "#{process.cwd()}/test/test_data/javascript_test.js"
+      expect(@result).to.include "#{process.cwd()}/test/test_data/javascript_spec.js"
+      expect(@result).to.include "#{process.cwd()}/test/test_data/root_level_test.coffee"
+      expect(@result).to.include "#{process.cwd()}/test/test_data/root_level_spec.coffee"
+      expect(@result).to.include "#{process.cwd()}/test/test_data/dir/test_in_directory_test.coffee"
+      expect(@result).to.include "#{process.cwd()}/test/test_data/dir/subdir/test_in_subdirectory_test.coffee"
+

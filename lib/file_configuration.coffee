@@ -19,5 +19,11 @@ class FileConfiguration
       @files = @files.concat new TestsFinder(test_dir).files()
 
 
+  # Serializes this data into a format so that it can be given to
+  # childProcess.spawn.
+  to_args: ->
+    @files
+
+
 
 module.exports = FileConfiguration

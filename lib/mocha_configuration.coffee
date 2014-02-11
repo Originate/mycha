@@ -20,5 +20,14 @@ class MochaConfiguration
     delete @options['$0']
 
 
+  # Serializes this data into a format so that it can be given to
+  # childProcess.spawn.
+  to_args: ->
+    result = []
+    for own key, value of @options
+      result.push "--#{key}"
+      result.push value unless value is true
+    result
+
 
 module.exports = MochaConfiguration
