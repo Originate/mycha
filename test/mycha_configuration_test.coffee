@@ -9,51 +9,103 @@ MychaConfiguration = require '../lib/mycha_configuration'
 
 describe 'MychaConfiguration', ->
 
-  context 'with no user options given', ->
+  describe 'constructor', ->
 
-    beforeEach ->
-      @mycha_configuration = new MychaConfiguration Mycha.default_mycha_options,
-                                                    create_argv()
+    context 'without user options', ->
 
-    it 'uses the default stdout', ->
-      expect(@mycha_configuration.options.stdout).to.equal Mycha.default_mycha_options.stdout
+      beforeEach ->
+        @mycha_configuration = new MychaConfiguration Mycha.default_mycha_options,
+                                                      create_argv()
 
-    it 'uses the default stderr', ->
-      expect(@mycha_configuration.options.stderr).to.equal Mycha.default_mycha_options.stderr
+      it 'uses the default stdout', ->
+        expect(@mycha_configuration.options.stdout).to.equal Mycha.default_mycha_options.stdout
 
-    it 'uses the default test directory', ->
-      expect(@mycha_configuration.options.testDir).to.equal Mycha.default_mycha_options.testDir
+      it 'uses the default stderr', ->
+        expect(@mycha_configuration.options.stderr).to.equal Mycha.default_mycha_options.stderr
 
-    it 'removes the used options', ->
-      for own key, value of Mycha.default_mycha_options
-        expect(@mycha_configuration.remaining_options).to.not.have.property key
+      it 'uses the default test directory', ->
+        expect(@mycha_configuration.options.testDir).to.equal Mycha.default_mycha_options.testDir
 
-
-  context 'with user options given', ->
-
-    beforeEach ->
-      @user_options =
-        stdout: 'custom stdout'
-        stderr: 'custom stderr'
-        reporter: 'custom reporter'
-        testDir: 'test/test_data'
-        foo: 'bar'
-      @mycha_configuration = new MychaConfiguration Mycha.default_mycha_options,
-                                                    create_argv(options: @user_options)
+      it 'removes the used options', ->
+        for own key, value of Mycha.default_mycha_options
+          expect(@mycha_configuration.remaining_options).to.not.have.property key
 
 
-    it 'uses the custom stdout', ->
-      expect(@mycha_configuration.options.stdout).to.equal 'custom stdout'
+    context 'with user options', ->
 
-    it 'uses the custom stderr', ->
-      expect(@mycha_configuration.options.stderr).to.equal 'custom stderr'
+      beforeEach ->
+        @user_options =
+          stdout: 'custom stdout'
+          stderr: 'custom stderr'
+          reporter: 'custom reporter'
+          testDir: 'test/test_data'
+          foo: 'bar'
+        @mycha_configuration = new MychaConfiguration Mycha.default_mycha_options,
+                                                      create_argv(options: @user_options)
 
-    it 'uses the custom test directory', ->
-      expect(@mycha_configuration.options.testDir).to.equal 'test/test_data'
 
-    it 'returns the remaining user options ', ->
-      expect(@mycha_configuration.remaining_options).to.have.property 'reporter', 'custom reporter'
-      expect(@mycha_configuration.remaining_options).to.have.property 'foo', 'bar'
-      expect(@mycha_configuration.remaining_options).to.not.contain.keys ['stdout', 'stderr', 'testDir']
+      it 'uses the custom stdout', ->
+        expect(@mycha_configuration.options.stdout).to.equal 'custom stdout'
 
+      it 'uses the custom stderr', ->
+        expect(@mycha_configuration.options.stderr).to.equal 'custom stderr'
+
+      it 'uses the custom test directory', ->
+        expect(@mycha_configuration.options.testDir).to.equal 'test/test_data'
+
+      it 'returns the remaining user options ', ->
+        expect(@mycha_configuration.remaining_options).to.have.property 'reporter', 'custom reporter'
+        expect(@mycha_configuration.remaining_options).to.have.property 'foo', 'bar'
+        expect(@mycha_configuration.remaining_options).to.not.contain.keys ['stdout', 'stderr', 'testDir']
+
+
+  describe 'merge_options', ->
+
+    context 'without user options', ->
+
+      beforeEach ->
+        mycha_configuration = new MychaConfiguration Mycha.default_mycha_options,
+                                                     create_argv()
+        @result = mycha_configuration.merge_options create_argv(),
+                                                    Mycha.default_mycha_options
+
+      it 'uses the default stdout', ->
+        expect(@result.stdout).to.equal Mycha.default_mycha_options.stdout
+
+      it 'uses the default stderr', ->
+        expect(@result.stderr).to.equal Mycha.default_mycha_options.stderr
+
+      it 'uses the default test directory', ->
+        expect(@result.testDir).to.equal Mycha.default_mycha_options.testDir
+
+
+    context 'with user options given', ->
+
+      beforeEach ->
+        @user_options =
+          stdout: 'custom stdout'
+          stderr: 'custom stderr'
+          reporter: 'custom reporter'
+          testDir: 'test/test_data'
+          foo: 'bar'
+        @mycha_configuration = new MychaConfiguration Mycha.default_mycha_options,
+                                                      create_argv(options: @user_options)
+
+
+      it 'uses the custom stdout', ->
+        expect(@mycha_configuration.options.stdout).to.equal 'custom stdout'
+
+      it 'uses the custom stderr', ->
+        expect(@mycha_configuration.options.stderr).to.equal 'custom stderr'
+
+      it 'uses the custom test directory', ->
+        expect(@mycha_configuration.options.testDir).to.equal 'test/test_data'
+
+      it 'returns the remaining user options ', ->
+        expect(@mycha_configuration.remaining_options).to.have.property 'reporter', 'custom reporter'
+        expect(@mycha_configuration.remaining_options).to.have.property 'foo', 'bar'
+        expect(@mycha_configuration.remaining_options).to.not.contain.keys ['stdout', 'stderr', 'testDir']
+
+
+  describe 'remove_used_options', ->
 
