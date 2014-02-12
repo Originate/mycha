@@ -14,8 +14,10 @@ describe 'MychaConfiguration', ->
     context 'without user options', ->
 
       beforeEach ->
-        @mycha_configuration = new MychaConfiguration Mycha.default_mycha_options,
-                                                      create_argv()
+        @mycha_configuration = new MychaConfiguration
+          run_options: {}
+          default_mycha_options: Mycha.default_mycha_options
+          files: []
 
       it 'uses the default stdout', ->
         expect(@mycha_configuration.options.stdout).to.equal Mycha.default_mycha_options.stdout
@@ -40,8 +42,10 @@ describe 'MychaConfiguration', ->
           reporter: 'custom reporter'
           testDir: 'test/test_data'
           foo: 'bar'
-        @mycha_configuration = new MychaConfiguration Mycha.default_mycha_options,
-                                                      create_argv(options: @user_options)
+        @mycha_configuration = new MychaConfiguration
+          run_options: @user_options
+          default_mycha_options: Mycha.default_mycha_options
+          files: []
 
 
       it 'uses the custom stdout', ->
@@ -58,15 +62,21 @@ describe 'MychaConfiguration', ->
         expect(@mycha_configuration.remaining_options).to.have.property 'foo', 'bar'
         expect(@mycha_configuration.remaining_options).to.not.contain.keys ['stdout', 'stderr', 'testDir']
 
+      it 'removes the used options', ->
+        for own key, value of Mycha.default_mycha_options
+          expect(@mycha_configuration.remaining_options).to.not.have.property key
+
 
   describe 'merge_options', ->
 
     context 'without user options', ->
 
       beforeEach ->
-        mycha_configuration = new MychaConfiguration Mycha.default_mycha_options,
-                                                     create_argv()
-        @result = mycha_configuration.merge_options create_argv(),
+        mycha_configuration = new MychaConfiguration
+          run_options: {}
+          default_mycha_options: Mycha.default_mycha_options
+          files: []
+        @result = mycha_configuration.merge_options {},
                                                     Mycha.default_mycha_options
 
       it 'uses the default stdout', ->
@@ -88,9 +98,10 @@ describe 'MychaConfiguration', ->
           reporter: 'custom reporter'
           testDir: 'test/test_data'
           foo: 'bar'
-        @mycha_configuration = new MychaConfiguration Mycha.default_mycha_options,
-                                                      create_argv(options: @user_options)
-
+        @mycha_configuration = new MychaConfiguration
+          run_options: @user_options
+          default_mycha_options: Mycha.default_mycha_options
+          files: []
 
       it 'uses the custom stdout', ->
         expect(@mycha_configuration.options.stdout).to.equal 'custom stdout'

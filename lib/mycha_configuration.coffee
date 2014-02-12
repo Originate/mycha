@@ -8,21 +8,20 @@ class MychaConfiguration
 
   # Parameters:
   # - default_mycha_options: the default Mycha options (defined in mycha.coffee)
-  # - argv: the command-line arguments, as provided by Optimist
-  constructor: (default_mycha_options, argv) ->
+  constructor: ({run_options, default_mycha_options, files}) ->
 
     # The configuration options to use.
-    @options = @merge_options argv, default_mycha_options
+    @options = @merge_options run_options, default_mycha_options
 
     # The user options that have not been used here.
-    @remaining_options = @remove_used_options @options, argv
+    @remaining_options = @remove_used_options @options, run_options
 
 
   # Merges the given user options with the given default options.
-  merge_options: (user_options, default_options) ->
+  merge_options: (run_options, default_options) ->
     result = {}
     for own key, value of default_options
-      result[key] = user_options[key] ? default_options[key]
+      result[key] = run_options[key] ? default_options[key]
     result
 
 
