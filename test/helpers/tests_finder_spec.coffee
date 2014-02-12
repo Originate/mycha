@@ -2,7 +2,7 @@ chai = require 'chai'
 sinon = require 'sinon'
 chai.use require 'sinon-chai'
 expect = chai.expect
-TestsFinder = require '../lib/tests_finder'
+TestsFinder = require '../lib/helpers/tests_finder'
 _ = require 'underscore'
 
 
