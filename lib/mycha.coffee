@@ -27,7 +27,7 @@ class Mycha
   # Any files that Mocha should always load, in addition to the test files.
   @default_files = [
     # The Mycha test helper
-    "#{__dirname}/helper.coffee"
+    "#{__dirname}/test_helper.coffee"
   ]
 
 
