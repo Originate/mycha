@@ -1,4 +1,4 @@
-TestsFinder = require './tests_finder'
+TestsFinder = require '../helpers/tests_finder'
 
 
 # Parses the file-related options out of the given argv,

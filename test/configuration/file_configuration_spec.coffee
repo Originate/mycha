@@ -2,9 +2,9 @@ chai = require 'chai'
 sinon = require 'sinon'
 chai.use require 'sinon-chai'
 expect = chai.expect
-require './test_helper'
-Mycha = require '../lib/mycha'
-FileConfiguration = require '../lib/file_configuration'
+require '../test_helper'
+Mycha = require '../../lib/mycha'
+FileConfiguration = require '../../lib/configuration/file_configuration'
 
 
 describe 'FileConfiguration', ->
@@ -66,7 +66,7 @@ describe 'FileConfiguration', ->
       @result = file_configuration.to_args()
 
     it 'loads the Mycha helper first', ->
-      expect(@result[0]).to.equal "#{process.cwd()}/lib/helper.coffee"
+      expect(@result[0]).to.equal "#{process.cwd()}/lib/test_helper.coffee"
 
     it 'provides all test files', ->
       expect(@result).to.include "#{process.cwd()}/test_data/subdirectories/javascript_test.js"

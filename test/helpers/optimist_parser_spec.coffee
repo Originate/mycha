@@ -2,8 +2,8 @@ chai = require 'chai'
 sinon = require 'sinon'
 chai.use require 'sinon-chai'
 expect = chai.expect
-require './test_helper'
-OptimistParser = require '../lib/optimist_parser'
+require '../test_helper'
+OptimistParser = require '../../lib/helpers/optimist_parser'
 
 
 describe 'OptimistParser', ->

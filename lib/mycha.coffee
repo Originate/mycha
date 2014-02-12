@@ -1,10 +1,10 @@
 child = require 'child_process'
 path = require 'path'
 _ = require 'underscore'
-TestsFinder = require './tests_finder'
-MychaConfiguration = require './mycha_configuration'
-MochaConfiguration = require './mocha_configuration'
-FileConfiguration = require './file_configuration'
+TestsFinder = require './helpers/tests_finder'
+MychaConfiguration = require './configuration/mycha_configuration'
+MochaConfiguration = require './configuration/mocha_configuration'
+FileConfiguration = require './configuration/file_configuration'
 
 
 # The main class. Performs the Mycha functionality.
@@ -27,7 +27,7 @@ class Mycha
   # Any files that Mocha should always load, in addition to the test files.
   @default_files = [
     # The Mycha test helper
-    "#{__dirname}/helper.coffee"
+    path.join __dirname, '/test_helper.coffee'
   ]
 
 

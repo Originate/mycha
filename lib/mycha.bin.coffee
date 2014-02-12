@@ -1,4 +1,4 @@
-OptimistParser = require './optimist_parser'
+OptimistParser = require './helpers/optimist_parser'
 
 
 commands =

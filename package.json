@@ -19,7 +19,7 @@
     "url": "git://github.com/Originate/mycha.git"
   },
   "scripts": {
-    "test": "mocha --compilers coffee:coffee-script --reporter spec test/*_test.coffee test/**/*_test.coffee"
+    "test": "mocha --compilers coffee:coffee-script --reporter spec test/*_spec.coffee test/**/*_spec.coffee"
   },
   "author": "Alex David"
 }
