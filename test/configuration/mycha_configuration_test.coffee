@@ -2,9 +2,9 @@ chai = require 'chai'
 sinon = require 'sinon'
 chai.use require 'sinon-chai'
 expect = chai.expect
-require './test_helper'
-Mycha = require '../lib/mycha'
-MychaConfiguration = require '../lib/mycha_configuration'
+require '../test_helper'
+Mycha = require '../../lib/mycha'
+MychaConfiguration = require '../../lib/configuration/mycha_configuration'
 
 
 # Helper method to create MychaConfiguration instances in tests.

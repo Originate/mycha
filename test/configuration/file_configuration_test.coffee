@@ -2,9 +2,9 @@ chai = require 'chai'
 sinon = require 'sinon'
 chai.use require 'sinon-chai'
 expect = chai.expect
-require './test_helper'
-Mycha = require '../lib/mycha'
-FileConfiguration = require '../lib/file_configuration'
+require '../test_helper'
+Mycha = require '../../lib/mycha'
+FileConfiguration = require '../../lib/configuration/file_configuration'
 
 
 describe 'FileConfiguration', ->

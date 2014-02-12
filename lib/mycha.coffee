@@ -2,9 +2,9 @@ child = require 'child_process'
 path = require 'path'
 _ = require 'underscore'
 TestsFinder = require './tests_finder'
-MychaConfiguration = require './mycha_configuration'
-MochaConfiguration = require './mocha_configuration'
-FileConfiguration = require './file_configuration'
+MychaConfiguration = require './configuration/mycha_configuration'
+MochaConfiguration = require './configuration/mocha_configuration'
+FileConfiguration = require './configuration/file_configuration'
 
 
 # The main class. Performs the Mycha functionality.
