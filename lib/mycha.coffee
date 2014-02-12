@@ -33,33 +33,49 @@ class Mycha
 
   # parameters:
   # - argv: argument values provided by Optimist.
-  constructor: (argv) ->
+  constructor: (@project_directory) ->
 
-    # The options to configure this Mycha instance.
-    @mycha_configuration = new MychaConfiguration Mycha.default_mycha_options,
-                                                  argv
-
-    # The options to provide to Mocha.
-    @mocha_configuration = new MochaConfiguration Mycha.default_mocha_options,
-                                                  argv
-
-    # The JS/CS files to provide to Mocha.
-    @file_configuration = new FileConfiguration
-      test_dir: @mycha_configuration.options.testDir
-      default_files: Mycha.default_files
-      argv: argv
+    # TODO: read the config file here
 
 
   get_mocha_args: ->
     @mocha_configuration.to_args().concat @file_configuration.to_args()
 
 
-  run: (callback) ->
+  run: (run_options, files, done) ->
+
+    # The options to configure this Mycha instance.
+    @mycha_configuration = new MychaConfiguration
+      run_options: run_options
+      default_mycha_options: Mycha.default_mycha_options
+      files: files
+
+    # The options to provide to Mocha.
+    @mocha_configuration = new MochaConfiguration
+      run_options: run_options
+      default_mocha_options: Mycha.default_mocha_options,
+      files: files
+
+    # The JS/CS files to provide to Mocha.
+    @file_configuration = new FileConfiguration
+      test_dir: "#{process.cwd()}/#{@mycha_configuration.options.testDir}"
+      default_files: Mycha.default_files
+      files: files
+
+    @call_mocha @get_mocha_args(),
+                done
+
+
+  #
+  watch: (run_options, files) ->
+
+
+  call_mocha: (mocha_args, done) ->
     childProcess = child.spawn path.resolve(__dirname, '../node_modules/mocha/bin/mocha'),
-                               @get_mocha_args()
+                               mocha_args
     childProcess.stdout.pipe @mycha_configuration.options.stdout
     childProcess.stderr.pipe @mycha_configuration.options.stderr
-    childProcess.on 'exit', callback if callback
+    childProcess.on 'exit', done if done
 
 
 
