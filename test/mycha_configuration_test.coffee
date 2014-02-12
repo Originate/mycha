@@ -7,6 +7,13 @@ Mycha = require '../lib/mycha'
 MychaConfiguration = require '../lib/mycha_configuration'
 
 
+# Helper method to create MychaConfiguration instances in tests.
+create_mycha_configuration = (run_options = {})->
+  new MychaConfiguration
+    run_options: run_options
+    default_mycha_options: Mycha.default_mycha_options
+
+
 describe 'MychaConfiguration', ->
 
   describe 'constructor', ->
@@ -14,10 +21,7 @@ describe 'MychaConfiguration', ->
     context 'without user options', ->
 
       beforeEach ->
-        @mycha_configuration = new MychaConfiguration
-          run_options: {}
-          default_mycha_options: Mycha.default_mycha_options
-          files: []
+        @mycha_configuration = create_mycha_configuration()
 
       it 'uses the default stdout', ->
         expect(@mycha_configuration.options.stdout).to.equal Mycha.default_mycha_options.stdout
@@ -42,10 +46,7 @@ describe 'MychaConfiguration', ->
           reporter: 'custom reporter'
           testDir: 'test/test_data'
           foo: 'bar'
-        @mycha_configuration = new MychaConfiguration
-          run_options: @user_options
-          default_mycha_options: Mycha.default_mycha_options
-          files: []
+        @mycha_configuration = create_mycha_configuration @user_options
 
 
       it 'uses the custom stdout', ->
@@ -72,10 +73,7 @@ describe 'MychaConfiguration', ->
     context 'without user options', ->
 
       beforeEach ->
-        mycha_configuration = new MychaConfiguration
-          run_options: {}
-          default_mycha_options: Mycha.default_mycha_options
-          files: []
+        mycha_configuration = create_mycha_configuration()
         @result = mycha_configuration.merge_options {},
                                                     Mycha.default_mycha_options
 
@@ -98,10 +96,7 @@ describe 'MychaConfiguration', ->
           reporter: 'custom reporter'
           testDir: 'test/test_data'
           foo: 'bar'
-        @mycha_configuration = new MychaConfiguration
-          run_options: @user_options
-          default_mycha_options: Mycha.default_mycha_options
-          files: []
+        @mycha_configuration = create_mycha_configuration @user_options
 
       it 'uses the custom stdout', ->
         expect(@mycha_configuration.options.stdout).to.equal 'custom stdout'
