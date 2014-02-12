@@ -1,3 +1,6 @@
+OptimistParser = require './optimist_parser'
+
+
 commands =
   run: "Runs all tests found in /test"
   watch: "Runs all tests in /test and watches for changes"
@@ -19,7 +22,11 @@ argv = require('optimist')
     throw "" if command is 'help'
   .argv
 
+
 Mycha = require __dirname + '/mycha'
-mycha = new Mycha argv
-mycha.run (exit_code) ->
-  process.exit exit_code
+mycha = new Mycha process.cwd()
+if argv._[0] is 'run'
+  optimist_parser = new OptimistParser argv
+  mycha.run optimist_parser.options(),
+            optimist_parser.files(),
+            (exit_code) -> process.exit exit_code
