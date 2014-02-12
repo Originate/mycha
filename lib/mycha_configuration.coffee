@@ -13,10 +13,12 @@ class MychaConfiguration
   constructor: ({run_options, default_mycha_options, files}) ->
 
     # The configuration options to use.
-    @options = @merge_options run_options, default_mycha_options
+    @options = @merge_options run_options,
+                              default_mycha_options
 
     # The user options that have not been used here.
-    @remaining_options = @remove_used_options @options, run_options
+    @remaining_options = @remove_used_options @options,
+                                              run_options
 
 
   # Merges the given user options with the given default options.
