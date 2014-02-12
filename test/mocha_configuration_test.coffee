@@ -91,3 +91,17 @@ describe 'MochaConfiguration', ->
         expect(@result).to.include '--reporter'
         expect(@result).to.include 'dot'
         expect(@result).to.include '--colors'
+
+
+    context 'an option is disabled', ->
+
+      beforeEach ->
+        mocha_configuration = new MochaConfiguration
+          run_options: {colors: false}
+          default_mocha_options: Mycha.default_mocha_options
+          files: []
+        @result = mocha_configuration.to_args()
+
+      it 'does not provide the disabled option', ->
+        console.log @result
+        expect(@result).to.not.include '--colors'

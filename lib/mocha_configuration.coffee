@@ -30,6 +30,7 @@ class MochaConfiguration
   to_args: ->
     result = []
     for own key, value of @options
+      continue if value is false
       result.push "--#{key}"
       result.push value unless value is true
     result
