@@ -1,7 +1,7 @@
 _ = require 'underscore'
 
 
-# Parses the Mycha options out of the given command-line arguments
+# Parses the Mycha options out of the given command-line arguments,
 # augments them with default values,
 # and represents them in a user-friendly format.
 class MychaConfiguration
