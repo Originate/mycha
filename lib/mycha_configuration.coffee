@@ -9,8 +9,7 @@ class MychaConfiguration
   # Parameters:
   # - run_options: the options given for this run (i.e. on the command line)
   # - default_mycha_options: the default Mycha options (defined in mycha.coffee)
-  # - files: any specific test files given for this run
-  constructor: ({run_options, default_mycha_options, files}) ->
+  constructor: ({run_options, default_mycha_options}) ->
 
     # The configuration options to use.
     @options = @merge_options run_options,

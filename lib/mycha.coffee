@@ -50,7 +50,6 @@ class Mycha
     @mycha_configuration = new MychaConfiguration
       run_options: run_options
       default_mycha_options: Mycha.default_mycha_options
-      files: files
 
     # The options to provide to Mocha.
     @mocha_configuration = new MochaConfiguration
