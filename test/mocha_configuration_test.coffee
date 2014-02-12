@@ -14,9 +14,10 @@ describe 'MochaConfiguration', ->
     context 'without user options', ->
 
       beforeEach ->
-        @argv = create_argv()
-        @mocha_configuration = new MochaConfiguration Mycha.default_mocha_options,
-                                                      @argv
+        @mocha_configuration = new MochaConfiguration
+          run_options: {}
+          default_mocha_options: Mycha.default_mocha_options,
+          files: []
 
       it 'uses CoffeeScript as the default compiler', ->
         expect(@mocha_configuration.options.compilers).to.equal 'coffee:coffee-script'
@@ -26,14 +27,6 @@ describe 'MochaConfiguration', ->
 
       it 'shows colors', ->
         expect(@mocha_configuration.options.colors).to.be.true
-
-      it 'does not contain the Optimist-specific elements', ->
-        expect(@mocha_configuration.options).to.not.have.property '_'
-        expect(@mocha_configuration.options).to.not.have.property '$0'
-
-      it 'does not change the given argv parameter', ->
-        expect(@argv).to.have.property '_'
-        expect(@argv).to.have.property '$0'
 
 
     context 'with user options', ->
@@ -45,18 +38,16 @@ describe 'MochaConfiguration', ->
           reporter: 'custom reporter'
           testDir: 'test/test_data'
           compilers: 'foo:bar'
-        @mocha_configuration = new MochaConfiguration Mycha.default_mocha_options,
-                                                      create_argv(options: user_options)
+        @mocha_configuration = new MochaConfiguration
+          run_options: user_options
+          default_mocha_options: Mycha.default_mocha_options
+          files: []
 
       it 'uses the given compiler', ->
         expect(@mocha_configuration.options.compilers).to.equal 'foo:bar'
 
       it 'uses the given reporter', ->
         expect(@mocha_configuration.options.reporter).to.equal 'custom reporter'
-
-      it 'does not contain the Optimist-specific elements', ->
-        expect(@mocha_configuration.options).to.not.have.property '_'
-        expect(@mocha_configuration.options).to.not.have.property '$0'
 
 
   describe 'merge_options', ->
@@ -68,10 +59,11 @@ describe 'MochaConfiguration', ->
         reporter: 'custom reporter'
         testDir: 'test/test_data'
         compilers: 'foo:bar'
-      mocha_configuration = new MochaConfiguration Mycha.default_mocha_options,
-                                                   create_argv()
-      @argv = create_argv options: user_options
-      @result = mocha_configuration.merge_options @argv,
+      mocha_configuration = new MochaConfiguration
+        run_options: {}
+        default_mocha_options: Mycha.default_mocha_options
+        files: []
+      @result = mocha_configuration.merge_options user_options,
                                                   Mycha.default_mocha_options
 
     it 'uses the user-provided compiler', ->
@@ -81,26 +73,13 @@ describe 'MochaConfiguration', ->
       expect(@result.reporter).to.equal 'custom reporter'
 
 
-  describe 'remove_optimist_elements', ->
-
-    beforeEach ->
-      mocha_configuration = new MochaConfiguration Mycha.default_mocha_options,
-                                                   create_argv()
-      @result = mocha_configuration.remove_optimist_elements create_argv()
-
-    it 'removes the command-line arguments', ->
-      expect(@result).to.not.have.property '_'
-
-    it 'removes the application name element', ->
-      expect(@result).to.not.have.property '$0'
-
-
-
   describe 'to_args', ->
 
     it 'returns an array of strings', ->
-      mocha_configuration = new MochaConfiguration Mycha.default_mocha_options,
-                                                   create_argv()
+      mocha_configuration = new MochaConfiguration
+        run_options: {}
+        default_mocha_options: Mycha.default_mocha_options
+        files: []
       result = mocha_configuration.to_args()
       expect(result.length).to.equal 5
       expect(result).to.include '--compilers'
