@@ -75,15 +75,19 @@ describe 'MochaConfiguration', ->
 
   describe 'to_args', ->
 
-    it 'returns an array of strings', ->
-      mocha_configuration = new MochaConfiguration
-        run_options: {}
-        default_mocha_options: Mycha.default_mocha_options
-        files: []
-      result = mocha_configuration.to_args()
-      expect(result.length).to.equal 5
-      expect(result).to.include '--compilers'
-      expect(result).to.include 'coffee:coffee-script'
-      expect(result).to.include '--reporter'
-      expect(result).to.include 'dot'
-      expect(result).to.include '--colors'
+    context 'normal behavior', ->
+
+      beforeEach ->
+        mocha_configuration = new MochaConfiguration
+          run_options: {}
+          default_mocha_options: Mycha.default_mocha_options
+          files: []
+        @result = mocha_configuration.to_args()
+
+      it 'returns an array of strings', ->
+        expect(@result.length).to.equal 5
+        expect(@result).to.include '--compilers'
+        expect(@result).to.include 'coffee:coffee-script'
+        expect(@result).to.include '--reporter'
+        expect(@result).to.include 'dot'
+        expect(@result).to.include '--colors'
