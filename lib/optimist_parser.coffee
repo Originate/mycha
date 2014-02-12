@@ -5,7 +5,7 @@ _ = require 'underscore'
 class OptimistParser
 
 
-  # param:
+  # Parameters:
   # - argv: the argv value from Optimist
   constructor: (@argv) ->
 
@@ -20,11 +20,12 @@ class OptimistParser
     @argv._[1..]
 
 
+  # Returns the options given on the command line.
   options: ->
     @remove_optimist_elements @argv
 
 
-  # Removes the elements of argv that Optimist adds.
+  # Removes the Optimist-internal elements of the given argv.
   remove_optimist_elements: (argv) ->
     result = _(argv).clone()
     delete result._

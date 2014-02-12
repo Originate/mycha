@@ -7,13 +7,14 @@ _ = require 'underscore'
 class MochaConfiguration
 
   # Parameters:
+  # - run_options: the options given for this run (i.e. on the command line)
   # - default_mocha_options: the default mocha options (defined in mycha.coffee)
+  # - files: any specific test files given for this run
   constructor: ({run_options, default_mocha_options, files}) ->
 
     # The final Mocha options to use.
     @options = @merge_options run_options,
                               default_mocha_options
-
 
 
   # Augments the given command-line option with the given default values.
@@ -32,6 +33,7 @@ class MochaConfiguration
       result.push "--#{key}"
       result.push value unless value is true
     result
+
 
 
 module.exports = MochaConfiguration

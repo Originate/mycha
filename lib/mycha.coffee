@@ -31,17 +31,19 @@ class Mycha
   ]
 
 
-  # parameters:
-  # - argv: argument values provided by Optimist.
+  # Parameters:
+  # - project_directory: the working directory
   constructor: (@project_directory) ->
-
     # TODO: read the config file here
 
 
+  # Returns the arguments to provide to Mocha to run the current test suite.
   get_mocha_args: ->
     @mocha_configuration.to_args().concat @file_configuration.to_args()
 
 
+  # Runs the current test suite according to the given options
+  # and user-specified test files.
   run: (run_options, files, done) ->
 
     # The options to configure this Mycha instance.
@@ -70,6 +72,10 @@ class Mycha
   watch: (run_options, files) ->
 
 
+  # Runs mocha with the given command-line arguments.
+  #
+  # Parameters:
+  # - mocha_args: Array of string arguments to provide to Mocha.
   call_mocha: (mocha_args, done) ->
     childProcess = child.spawn path.resolve(__dirname, '../node_modules/mocha/bin/mocha'),
                                mocha_args
