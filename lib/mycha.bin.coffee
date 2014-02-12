@@ -1,3 +1,6 @@
+OptimistParser = require './optimist_parser'
+
+
 commands =
   run: "Runs all tests found in /test"
   watch: "Runs all tests in /test and watches for changes"
@@ -12,15 +15,6 @@ usage_text = """
 
 argv = require('optimist')
   .usage(usage_text)
-  .options 'reporter',
-    alias: 'R'
-    default: 'spec'
-    describe: 'specify the reporter to use'
-  .options 'timeout',
-    alias: 't'
-    default: '2000'
-    describe: 'set test-case timeout in milliseconds'
-  .describe('mocha.[mocha option]', 'Pass in mocha options (ex. --mocha.grep <pattern>)')
   .check (argv) ->
     command = argv._[0]
     throw "Missing command." unless command?
@@ -28,11 +22,11 @@ argv = require('optimist')
     throw "" if command is 'help'
   .argv
 
-command = argv._[0]
-options = argv
-options.watch = command is 'watch'
 
 Mycha = require __dirname + '/mycha'
-mycha = new Mycha options
-mycha.run (exit_code) ->
-  process.exit exit_code
+mycha = new Mycha process.cwd()
+optimist_parser = new OptimistParser argv
+if optimist_parser.command() is 'run'
+  mycha.run optimist_parser.options(),
+            optimist_parser.files(),
+            (exit_code) -> process.exit exit_code

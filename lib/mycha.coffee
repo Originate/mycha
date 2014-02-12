@@ -1,66 +1,86 @@
-Mocha = require 'mocha'
 child = require 'child_process'
+path = require 'path'
 _ = require 'underscore'
 TestsFinder = require './tests_finder'
+MychaConfiguration = require './mycha_configuration'
+MochaConfiguration = require './mocha_configuration'
+FileConfiguration = require './file_configuration'
 
 
+# The main class. Performs the Mycha functionality.
 class Mycha
 
-  # The default options to use.
-  # These options can be overridden by the user using command-line arguments.
-  @default_options =
+  # Default configuration options for Mycha.
+  @default_mycha_options =
     stdout: process.stdout
     stderr: process.stderr
-    reporter: 'dot'
     testDir: 'test'
 
 
-  # The default Mocha arguments.
-  # These are augmented by user-provided mocha arguments.
-  @default_mocha_args = (options) ->
-    [
-      # Set mocha options
-      "--compilers", "coffee:coffee-script"
-      "--reporter", options.reporter
-      "--colors"
-
-      # Include mycha test helper
-      "#{__dirname}/helper.coffee"
-    ]
+  # Default configuration options for Mocha.
+  @default_mocha_options =
+    compilers: "coffee:coffee-script"
+    reporter: 'dot'
+    colors: yes
 
 
-  constructor: (currentDir, user_options={}) ->
+  # Any files that Mocha should always load, in addition to the test files.
+  @default_files = [
+    # The Mycha test helper
+    "#{__dirname}/helper.coffee"
+  ]
 
-    # The options to use by this instance.
-    @options = @_calculate_final_options user_options
+
+  # Parameters:
+  # - project_directory: the working directory
+  constructor: (@project_directory) ->
+    # TODO: read the config file here
 
 
-  # Determines the options to be used by Mycha.
+  # Returns the arguments to provide to Mocha to run the current test suite.
+  get_mocha_args: ->
+    @mocha_configuration.to_args().concat @file_configuration.to_args()
+
+
+  # Runs the current test suite according to the given options
+  # and user-specified test files.
+  run: (run_options, files, done) ->
+
+    # The options to configure this Mycha instance.
+    @mycha_configuration = new MychaConfiguration
+      run_options: run_options
+      default_mycha_options: Mycha.default_mycha_options
+
+    # The options to provide to Mocha.
+    @mocha_configuration = new MochaConfiguration
+      run_options: run_options
+      default_mocha_options: Mycha.default_mocha_options,
+      files: files
+
+    # The JS/CS files to provide to Mocha.
+    @file_configuration = new FileConfiguration
+      test_dir: "#{process.cwd()}/#{@mycha_configuration.options.testDir}"
+      default_files: Mycha.default_files
+      files: files
+
+    @call_mocha @get_mocha_args(),
+                done
+
+
+  # TODO: implement the watch command here
+  watch: (run_options, files) ->
+
+
+  # Runs mocha with the given command-line arguments.
   #
-  # * user provided options
-  # * default options
-  # * test files
-  _calculate_final_options: (user_options) ->
-
-    # Merge user and default options.
-    result = _(user_options).defaults Mycha.default_options
-
-    # Calculate the Mocha arguments.
-    result.mochaArgs ?= []
-    result.mochaArgs = result.mochaArgs.concat Mycha.default_mocha_args(result)
-
-    # Include files found in /test
-    result.mochaArgs = result.mochaArgs.concat new TestsFinder(result.testDir).files()
-
-    result
-
-
-  run: (callback) ->
-    childProcess = child.spawn "#{__dirname}/../node_modules/mocha/bin/mocha",
-                               @options.mochaArgs
-    childProcess.stdout.pipe @options.stdout
-    childProcess.stderr.pipe @options.stderr
-    childProcess.on 'exit', callback if callback
+  # Parameters:
+  # - mocha_args: Array of string arguments to provide to Mocha.
+  call_mocha: (mocha_args, done) ->
+    childProcess = child.spawn path.resolve(__dirname, '../node_modules/mocha/bin/mocha'),
+                               mocha_args
+    childProcess.stdout.pipe @mycha_configuration.options.stdout
+    childProcess.stderr.pipe @mycha_configuration.options.stderr
+    childProcess.on 'exit', done if done
 
 
 
