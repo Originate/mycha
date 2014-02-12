@@ -4,7 +4,6 @@ _ = require 'underscore'
 # Makes command-line arguments provided by Optimist conveniently available.
 class OptimistParser
 
-
   # Parameters:
   # - argv: the argv value from Optimist
   constructor: (@argv) ->
