@@ -25,8 +25,8 @@ argv = require('optimist')
 
 Mycha = require __dirname + '/mycha'
 mycha = new Mycha process.cwd()
-if argv._[0] is 'run'
-  optimist_parser = new OptimistParser argv
+optimist_parser = new OptimistParser argv
+if optimist_parser.command() is 'run'
   mycha.run optimist_parser.options(),
             optimist_parser.files(),
             (exit_code) -> process.exit exit_code
