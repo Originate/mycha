@@ -57,7 +57,7 @@ global.verify_failure = (test_dir, done) ->
 global.create_argv = (options = {}) ->
   {options, commands} = options
   options ?= {}
-  commands ?= ['run']
+  commands ?= []
   result = {}
   result._ = commands
   result['$0'] = 'node ./bin/mycha'

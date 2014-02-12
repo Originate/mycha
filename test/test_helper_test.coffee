@@ -13,9 +13,9 @@ describe 'create_argv', ->
     beforeEach ->
       @result = create_argv()
 
-    it 'provides the "run" command by default', ->
+    it 'provides an empty argv structure', ->
       expect(@result).to.eql
-        _: ['run']
+        _: []
         '$0': 'node ./bin/mycha'
 
 
@@ -28,7 +28,7 @@ describe 'create_argv', ->
       expect(@result).to.eql
         reporter: 'spec'
         timeout: 20
-        _: ['run']
+        _: []
         '$0': 'node ./bin/mycha'
 
 
