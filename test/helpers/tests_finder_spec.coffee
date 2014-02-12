@@ -2,14 +2,14 @@ chai = require 'chai'
 sinon = require 'sinon'
 chai.use require 'sinon-chai'
 expect = chai.expect
-TestsFinder = require '../lib/helpers/tests_finder'
+TestsFinder = require '../../lib/helpers/tests_finder'
 _ = require 'underscore'
 
 
 describe 'TestsFinder', ->
 
   beforeEach ->
-    @test_files = new TestsFinder('./test/test_data').files()
+    @test_files = new TestsFinder('./test_data/subdirectories').files()
 
   it 'finds javascript tests', ->
     expect(@test_files).to.include_test_file 'javascript_test.js'
