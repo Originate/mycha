@@ -70,7 +70,13 @@ describe 'OptimistParser', ->
 
     context 'options given', ->
 
-      it 'returns the given options'
+      beforeEach ->
+        @result = new OptimistParser(create_argv(options: {reporter: 'spec', timeout: 20})).options()
+
+      it 'returns the given options', ->
+        expect(@result).to.have.property 'reporter', 'spec'
+        expect(@result).to.have.property 'timeout', 20
+
 
       it 'does not contain the Optimist-specific elements', ->
         expect(@result).to.not.have.property '_'
