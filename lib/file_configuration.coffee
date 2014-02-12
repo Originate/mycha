@@ -7,14 +7,13 @@ TestsFinder = require './tests_finder'
 # and provides all the resulting test files to Mycha.
 class FileConfiguration
 
-  constructor: ({test_dir, default_files, argv}) ->
+  constructor: ({test_dir, default_files, files}) ->
 
     # The files that Mycha should provide to Mocha.
     @files = []
     @files = @files.concat default_files
-    user_files = argv._[1..]
-    if user_files.length > 0
-      @files = @files.concat user_files
+    if files.length > 0
+      @files = @files.concat files
     else
       @files = @files.concat new TestsFinder(test_dir).files()
 

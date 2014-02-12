@@ -17,7 +17,7 @@ describe 'FileConfiguration', ->
         @file_configuration = new FileConfiguration
           test_dir: 'test_data/subdirectories'
           default_files: Mycha.default_files
-          argv: create_argv()
+          files: []
 
       it 'includes the given default file', ->
         expect(@file_configuration.files).to.include Mycha.default_files[0]
@@ -33,7 +33,7 @@ describe 'FileConfiguration', ->
         @file_configuration = new FileConfiguration
           test_dir: 'test_data/subdirectories'
           default_files: Mycha.default_files
-          argv: create_argv()
+          files: []
 
       it 'includes the given default file', ->
         expect(@file_configuration.files).to.include Mycha.default_files[0]
@@ -49,7 +49,7 @@ describe 'FileConfiguration', ->
         # @file_configuration = new FileConfiguration
         #   test_dir: 'test/test_data'
         #   default_files: Mycha.default_files
-        #   argv: create_argv(commands: ['run', ''])
+        #   files: ['run', '']
 
       it 'includes the Mycha helper file'
 
@@ -62,7 +62,7 @@ describe 'FileConfiguration', ->
       file_configuration = new FileConfiguration
         test_dir: 'test_data/subdirectories/'
         default_files: Mycha.default_files
-        argv: create_argv()
+        files: []
       @result = file_configuration.to_args()
 
     it 'loads the Mycha helper first', ->
