@@ -118,14 +118,12 @@ describe 'Mycha', ->
 
       it 'loads Mychas test helper before the test files', ->
         helper_index = @mocha_argument.indexOf path.resolve 'lib/test_helper.coffee'
-        first_test_index = @mocha_argument.indexOf path.resolve 'test_data/two_tests/test/one_test.coffee'
         second_test_index = @mocha_argument.indexOf path.resolve 'test_data/two_tests/test/two_test.coffee'
-        expect(helper_index).to.be.lessThan first_test_index
         expect(helper_index).to.be.lessThan second_test_index
 
       it 'runs only the given test', ->
         expect(@mocha_argument).to.include_test_file 'two_tests', 'two_test.coffee'
 
       it 'does not provide any other arguments than listed above plus the done callback', ->
-        expect(@mocha_argument.length).to.equal 8
+        expect(@mocha_argument.length).to.equal 7
 
