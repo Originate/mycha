@@ -108,7 +108,7 @@ describe 'Mycha', ->
         expect(@mycha_call_stub).to.have.been.calledOnce
 
       it 'uses the spec reporter', ->
-        expect(@mocha_argument).to.contain_consecutive_elements '--reporter', 'dot'
+        expect(@mocha_argument).to.contain_consecutive_elements '--reporter', 'spec'
 
       it 'enables the CoffeeScript compiler', ->
         expect(@mocha_argument).to.contain_consecutive_elements '--compilers', 'coffee:coffee-script'
@@ -118,14 +118,48 @@ describe 'Mycha', ->
 
       it 'loads Mychas test helper before the test files', ->
         helper_index = @mocha_argument.indexOf path.resolve 'lib/test_helper.coffee'
-        first_test_index = @mocha_argument.indexOf path.resolve 'test_data/two_tests/test/one_test.coffee'
         second_test_index = @mocha_argument.indexOf path.resolve 'test_data/two_tests/test/two_test.coffee'
-        expect(helper_index).to.be.lessThan first_test_index
         expect(helper_index).to.be.lessThan second_test_index
 
       it 'runs only the given test', ->
         expect(@mocha_argument).to.include_test_file 'two_tests', 'two_test.coffee'
 
       it 'does not provide any other arguments than listed above plus the done callback', ->
-        expect(@mocha_argument.length).to.equal 8
+        expect(@mocha_argument.length).to.equal 7
+
+
+    context 'mycha run --reporter foo [filename]', ->
+
+      beforeEach (done) ->
+        mycha = new Mycha 'test_data/two_tests'
+        @mocha_call_stub = sinon.stub(mycha, 'call_mocha').yields()
+        mycha.run
+          run_options: {reporter: 'foo'},
+          run_files: ['test/two_test.coffee'],
+          done: =>
+            @mocha_argument = @mocha_call_stub.args[0][0]
+            done()
+
+      it 'calls mocha once', ->
+        expect(@mycha_call_stub).to.have.been.calledOnce
+
+      it 'uses the foo reporter', ->
+        expect(@mocha_argument).to.contain_consecutive_elements '--reporter', 'foo'
+
+      it 'enables the CoffeeScript compiler', ->
+        expect(@mocha_argument).to.contain_consecutive_elements '--compilers', 'coffee:coffee-script'
+
+      it 'activates colors', ->
+        expect(@mocha_argument).to.contain '--colors',
+
+      it 'loads Mychas test helper before the test files', ->
+        helper_index = @mocha_argument.indexOf path.resolve 'lib/test_helper.coffee'
+        second_test_index = @mocha_argument.indexOf path.resolve 'test_data/two_tests/test/two_test.coffee'
+        expect(helper_index).to.be.lessThan second_test_index
+
+      it 'runs only the given test', ->
+        expect(@mocha_argument).to.include_test_file 'two_tests', 'two_test.coffee'
+
+      it 'does not provide any other arguments than listed above plus the done callback', ->
+        expect(@mocha_argument.length).to.equal 7
 

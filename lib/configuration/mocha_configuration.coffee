@@ -16,6 +16,10 @@ class MochaConfiguration
     @options = @merge_options run_options,
                               default_mocha_options
 
+    # Use 'spec' reporter when running individual test files.
+    if files.length > 0 and !run_options.reporter
+      @options.reporter = 'spec'
+
 
   # Augments the given command-line option with the given default values.
   merge_options: (run_options, default_options) ->
