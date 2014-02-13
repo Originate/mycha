@@ -106,7 +106,7 @@ describe 'Mycha', ->
         expect(@mocha_argument[5]).to.equal path.resolve 'lib/test_helper.coffee'
 
       it 'runs only the given test', ->
-        expect(@mocha_argument[6]).to.equal path.resolve 'test_data/two_tests/test/one_test.coffee'
+        expect(@mocha_argument[6]).to.equal path.resolve 'test_data/two_tests/test/two_test.coffee'
 
       it 'does not provide any other arguments than listed above plus the done callback', ->
         expect(@mocha_argument.length).to.equal 7

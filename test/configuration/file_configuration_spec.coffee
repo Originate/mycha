@@ -53,17 +53,19 @@ describe 'FileConfiguration', ->
     context 'single test file name given by the user', ->
 
       beforeEach ->
-        # @file_configuration = new FileConfiguration
-        #   test_dir: 'test/test_data'
-        #   default_files: Mycha.default_files
-        #   files: ['run', '']
+        file_configuration = new FileConfiguration
+          root_dir: path.join(process.cwd(), 'test_data', 'two_tests')
+          test_dir_name: 'test'
+          default_files: Mycha.default_files
+          run_files: ['test/two_test.coffee']
         @result = file_configuration.files
 
       it 'includes the given default file', ->
         for default_file in Mycha.default_files
           expect(@result).to.include(default_file)
 
-      it 'only runs the given test file'
+      it 'only runs the given test file', ->
+        expect(@result).to.include_test_file 'two_tests', 'two_test.coffee'
 
 
   describe 'to_args', ->

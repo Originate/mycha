@@ -18,8 +18,8 @@ class FileConfiguration
     # The files that Mycha should provide to Mocha.
     @files = []
     @files = @files.concat default_files
-      @files = @files.concat files
     if run_files.length > 0
+      @files.push path.resolve(root_dir, run_file) for run_file in run_files
     else
       @files = @files.concat new TestsFinder(path.resolve(root_dir, test_dir_name)).files()
 
