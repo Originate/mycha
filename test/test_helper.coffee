@@ -46,48 +46,7 @@ global.create_argv = (options = {}) ->
   _(result).extend options
 
 
-# Adds contain_consecutive_elements assertion to chai
-#
-# Usage:
-# chai.use ContainConsecutiveElementsAssertion
-class ContainConsecutiveElementsAssertion
-  constructor: ({ Assertion }) ->
-    Assertion.addMethod 'contain_consecutive_elements',
-                        ContainConsecutiveElementsAssertion.define_assertion
-
-  @define_assertion: (consecutive_values...) ->
-    array = @_obj
-    @assert ContainConsecutiveElementsAssertion.test_consecutive(array, consecutive_values),
-            "expected #{array} to contain #{consecutive_values} consecutively",
-            "expected #{array} to not contain #{consecutive_values} consecutively"
-
-  @test_consecutive: (array, consecutive_values) ->
-    first_index = array.indexOf consecutive_values[0]
-    return no if first_index is -1
-
-    for value, value_index in consecutive_values
-      return no if array[first_index + value_index] isnt value
-
-    return yes
 
 
-chai.use ContainConsecutiveElementsAssertion
-
-
-# Domain-specifc matcher for checking if the result list
-# has the entries with the given id marked as clicked.
-chai.Assertion.addMethod 'include_test_file', (test_dir, filename) ->
-
-  # Convert the absolute paths in the result to relative paths,
-  # to make them easier to compare.
-  test_directory_path = "#{process.cwd()}/test_data/#{test_dir}/test/"
-  shortened_actual_data = _(@_obj).map( (path) -> path.substr test_directory_path.length)
-
-  assertion = new chai.Assertion(shortened_actual_data)
-  if @__flags.negate
-    # We are supposed to check that Mycha does NOT consider the given file as a test file.
-    assertion.to.not.include filename
-  else
-    # We are supposed to check that Mycha does consider the given file as a test file.
-    assertion.to.include filename
-
+chai.use require './assertions/contain_consecutive_elements_assertion'
+chai.use require './assertions/include_test_file_assertion'
