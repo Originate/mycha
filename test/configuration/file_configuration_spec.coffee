@@ -23,8 +23,8 @@ describe 'FileConfiguration', ->
         expect(@file_configuration.files).to.include Mycha.default_files[0]
 
       it 'includes all files in the "test" directory', ->
-        expect(@file_configuration.files).to.include "#{process.cwd()}/test_data/subdirectories/javascript_test.js"
-        expect(@file_configuration.files).to.include "#{process.cwd()}/test_data/subdirectories/javascript_spec.js"
+        expect(@result).to.include_test_file 'two_tests', 'one_test.coffee'
+        expect(@result).to.include_test_file 'two_tests', 'two_test.coffee'
 
 
     context 'custom test directory given', ->
@@ -39,8 +39,8 @@ describe 'FileConfiguration', ->
         expect(@file_configuration.files).to.include Mycha.default_files[0]
 
       it 'includes all files in the "test" directory', ->
-        expect(@file_configuration.files).to.include "#{process.cwd()}/test_data/subdirectories/javascript_test.js"
-
+        expect(@result).to.include_test_file 'custom_test_directory', 'one_spec.coffee'
+        expect(@result).to.include_test_file 'custom_test_directory', 'two_spec.coffee'
 
 
     context 'single test file name given by the user', ->
@@ -69,10 +69,6 @@ describe 'FileConfiguration', ->
       expect(@result[0]).to.equal "#{process.cwd()}/lib/test_helper.coffee"
 
     it 'provides all test files', ->
-      expect(@result).to.include "#{process.cwd()}/test_data/subdirectories/javascript_test.js"
-      expect(@result).to.include "#{process.cwd()}/test_data/subdirectories/javascript_spec.js"
-      expect(@result).to.include "#{process.cwd()}/test_data/subdirectories/root_level_test.coffee"
-      expect(@result).to.include "#{process.cwd()}/test_data/subdirectories/root_level_spec.coffee"
-      expect(@result).to.include "#{process.cwd()}/test_data/subdirectories/dir/test_in_directory_test.coffee"
-      expect(@result).to.include "#{process.cwd()}/test_data/subdirectories/dir/subdir/test_in_subdirectory_test.coffee"
+      expect(@result).to.include_test_file 'two_tests', 'one_test.coffee'
+      expect(@result).to.include_test_file 'two_tests', 'two_test.coffee'
 
