@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "chai": "latest",
-    "coffee-script": "1.6.3",
+    "coffee-script": "latest",
     "mocha": "latest",
     "optimist": "latest",
     "sinon": "latest",
@@ -19,7 +19,7 @@
     "url": "git://github.com/Originate/mycha.git"
   },
   "scripts": {
-    "test": "mocha --compilers coffee:coffee-script --reporter spec test/*_spec.coffee test/**/*_spec.coffee"
+    "test": "mocha --compilers coffee:coffee-script/register --reporter spec test/*_spec.coffee test/**/*_spec.coffee"
   },
   "author": "Alex David"
 }
