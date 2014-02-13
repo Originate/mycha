@@ -25,7 +25,7 @@ class TestsFinder
         files.push filePath
       else if stat.isDirectory()
         @_search_directory filePath, files
-    files
+    files.sort()
 
 
   # Returns whether the given filesystem object is hidden.

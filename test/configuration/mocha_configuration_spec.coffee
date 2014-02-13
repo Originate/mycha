@@ -103,5 +103,4 @@ describe 'MochaConfiguration', ->
         @result = mocha_configuration.to_args()
 
       it 'does not provide the disabled option', ->
-        console.log @result
         expect(@result).to.not.include '--colors'
