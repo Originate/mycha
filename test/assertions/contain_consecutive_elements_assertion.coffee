@@ -15,8 +15,8 @@ class ContainConsecutiveElementsAssertion
     array = @_obj
     @assert ContainConsecutiveElementsAssertion.has_consecutive_values(array,
                                                                        consecutive_values),
-            "expected #{array.join ' '} to contain #{consecutive_values} consecutively",
-            "expected #{array.join ' '} to not contain #{consecutive_values} consecutively"
+            "expected #{array.join ' '} to contain #{consecutive_values.join ' '} consecutively",
+            "expected #{array.join ' '} to not contain #{consecutive_values.join ' '} consecutively"
 
 
   # Returns whether the given array contains the given values consecutively.
