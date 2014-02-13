@@ -46,8 +46,8 @@ describe 'Mycha', ->
         expect(helper_index).to.be.lessThan second_test_index
 
       it 'runs all the tests', ->
-        expect(@mocha_argument).to.contain path.resolve 'test_data/two_tests/test/one_test.coffee'
-        expect(@mocha_argument).to.contain path.resolve 'test_data/two_tests/test/two_test.coffee'
+        expect(@mocha_argument).to.include_test_file 'two_tests', 'one_test.coffee'
+        expect(@mocha_argument).to.include_test_file 'two_tests', 'two_test.coffee'
 
       it 'does not provide any other arguments than listed above plus the done callback', ->
         expect(@mocha_argument.length).to.equal 8
@@ -85,8 +85,8 @@ describe 'Mycha', ->
         expect(helper_index).to.be.lessThan second_test_index
 
       it 'runs all the tests', ->
-        expect(@mocha_argument).to.contain path.resolve 'test_data/two_tests/test/one_test.coffee'
-        expect(@mocha_argument).to.contain path.resolve 'test_data/two_tests/test/two_test.coffee'
+        expect(@mocha_argument).to.include_test_file 'two_tests', 'one_test.coffee'
+        expect(@mocha_argument).to.include_test_file 'two_tests', 'two_test.coffee'
 
       it 'does not provide any other arguments than listed above plus the done callback', ->
         expect(@mocha_argument.length).to.equal 8
@@ -124,7 +124,7 @@ describe 'Mycha', ->
         expect(helper_index).to.be.lessThan second_test_index
 
       it 'runs only the given test', ->
-        expect(@mocha_argument[6]).to.equal path.resolve 'test_data/two_tests/test/two_test.coffee'
+        expect(@mocha_argument).to.include_test_file 'two_tests', 'two_test.coffee'
 
       it 'does not provide any other arguments than listed above plus the done callback', ->
         expect(@mocha_argument.length).to.equal 8
