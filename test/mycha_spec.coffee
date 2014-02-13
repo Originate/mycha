@@ -107,23 +107,25 @@ describe 'Mycha', ->
       it 'calls mocha once', ->
         expect(@mycha_call_stub).to.have.been.calledOnce
 
-      it 'enables the CoffeeScript compiler', ->
-        expect(@mocha_argument[0]).to.equal '--compilers'
-        expect(@mocha_argument[1]).to.equal 'coffee:coffee-script'
+      it 'uses the spec reporter', ->
+        expect(@mocha_argument).to.contain_consecutive_elements '--reporter', 'dot'
 
-      it 'uses the dot reporter', ->
-        expect(@mocha_argument[2]).to.equal '--reporter'
-        expect(@mocha_argument[3]).to.equal 'dot'
+      it 'enables the CoffeeScript compiler', ->
+        expect(@mocha_argument).to.contain_consecutive_elements '--compilers', 'coffee:coffee-script'
 
       it 'activates colors', ->
-        expect(@mocha_argument[4]).to.equal '--colors',
+        expect(@mocha_argument).to.contain '--colors',
 
       it 'loads Mychas test helper before the test files', ->
-        expect(@mocha_argument[5]).to.equal path.resolve 'lib/test_helper.coffee'
+        helper_index = @mocha_argument.indexOf path.resolve 'lib/test_helper.coffee'
+        first_test_index = @mocha_argument.indexOf path.resolve 'test_data/two_tests/test/one_test.coffee'
+        second_test_index = @mocha_argument.indexOf path.resolve 'test_data/two_tests/test/two_test.coffee'
+        expect(helper_index).to.be.lessThan first_test_index
+        expect(helper_index).to.be.lessThan second_test_index
 
       it 'runs only the given test', ->
         expect(@mocha_argument[6]).to.equal path.resolve 'test_data/two_tests/test/two_test.coffee'
 
       it 'does not provide any other arguments than listed above plus the done callback', ->
-        expect(@mocha_argument.length).to.equal 7
+        expect(@mocha_argument.length).to.equal 8
 
