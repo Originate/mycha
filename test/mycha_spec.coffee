@@ -16,9 +16,12 @@ describe 'Mycha', ->
       beforeEach (done) ->
         mycha = new Mycha 'test_data/two_tests'
         @mycha_call_stub = sinon.stub(mycha, 'call_mocha').yields(0)
-        mycha.run {}, [], =>
-          @mocha_argument = @mycha_call_stub.args[0][0]
-          done()
+        mycha.run
+          run_options: {}
+          run_files: []
+          done: =>
+            @mocha_argument = @mycha_call_stub.args[0][0]
+            done()
 
       it 'calls mocha once', ->
         expect(@mycha_call_stub).to.have.been.calledOnce
@@ -50,9 +53,12 @@ describe 'Mycha', ->
       beforeEach (done) ->
         mycha = new Mycha 'test_data/two_tests'
         @mycha_call_stub = sinon.stub(mycha, 'call_mocha').yields()
-        mycha.run {reporter: 'spec'}, [], =>
-          @mocha_argument = @mycha_call_stub.args[0][0]
-          done()
+        mycha.run
+          run_options: {reporter: 'spec'},
+          run_files: [],
+          done: =>
+            @mocha_argument = @mycha_call_stub.args[0][0]
+            done()
 
       it 'calls mocha once', ->
         expect(@mycha_call_stub).to.have.been.calledOnce
@@ -84,9 +90,12 @@ describe 'Mycha', ->
       beforeEach (done) ->
         mycha = new Mycha 'test_data/two_tests'
         @mocha_call_stub = sinon.stub(mycha, 'call_mocha').yields()
-        mycha.run {}, ['test/two_test.coffee'], =>
-          @mocha_argument = @mocha_call_stub.args[0][0]
-          done()
+        mycha.run
+          run_options: {},
+          run_files: ['test/two_test.coffee'],
+          done: =>
+            @mocha_argument = @mocha_call_stub.args[0][0]
+            done()
 
       it 'calls mocha once', ->
         expect(@mycha_call_stub).to.have.been.calledOnce
