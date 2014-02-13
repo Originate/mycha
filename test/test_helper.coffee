@@ -66,8 +66,7 @@ class ContainConsecutiveElementsAssertion
     return no if first_index is -1
 
     for value, value_index in consecutive_values
-      index = first_index + value_index
-      return no if array[index] isnt value
+      return no if array[first_index + value_index] isnt value
 
     return yes
 
