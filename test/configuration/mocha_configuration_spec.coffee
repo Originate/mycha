@@ -68,6 +68,24 @@ describe 'MochaConfiguration', ->
         expect(@mocha_configuration.options.colors).to.be.true
 
 
+    context 'with custom reporter and user files given', ->
+
+      beforeEach ->
+        @mocha_configuration = new MochaConfiguration
+          run_options: {reporter: 'foo'}
+          default_mocha_options: Mycha.default_mocha_options,
+          files: ['one_spec.coffee']
+
+      it 'uses CoffeeScript as the default compiler', ->
+        expect(@mocha_configuration.options.compilers).to.equal 'coffee:coffee-script'
+
+      it 'uses the given custom reporter', ->
+        expect(@mocha_configuration.options.reporter).to.equal 'foo'
+
+      it 'shows colors', ->
+        expect(@mocha_configuration.options.colors).to.be.true
+
+
   describe 'merge_options', ->
 
     beforeEach ->

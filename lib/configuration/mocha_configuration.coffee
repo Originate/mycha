@@ -17,7 +17,7 @@ class MochaConfiguration
                               default_mocha_options
 
     # Use 'spec' reporter when running individual test files.
-    if files.length > 0
+    if files.length > 0 and !run_options.reporter
       @options.reporter = 'spec'
 
 
