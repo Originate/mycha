@@ -44,7 +44,7 @@ class Mycha
 
   # Runs the current test suite according to the given options
   # and user-specified test files.
-  run: (run_options, files, done) ->
+  run: ({run_options, run_files, done}) ->
 
     # The options to configure this Mycha instance.
     @mycha_configuration = new MychaConfiguration
@@ -54,14 +54,15 @@ class Mycha
     # The options to provide to Mocha.
     @mocha_configuration = new MochaConfiguration
       run_options: run_options
-      default_mocha_options: Mycha.default_mocha_options,
-      files: files
+      default_mocha_options: Mycha.default_mocha_options
+      files: run_files
 
     # The JS/CS files to provide to Mocha.
     @file_configuration = new FileConfiguration
-      test_dir: path.join(@project_directory, @mycha_configuration.options.testDir)
+      root_dir: @project_directory
+      test_dir_name: @mycha_configuration.options.testDir
       default_files: Mycha.default_files
-      files: files
+      run_files: run_files
 
     @call_mocha @get_mocha_args(),
                 done
