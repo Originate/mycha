@@ -20,7 +20,7 @@ describe 'FileConfiguration', ->
           test_dir_name: 'test'
           default_files: Mycha.default_files
           run_files: []
-        @result = file_configuration.files
+        @result = file_configuration.files()
 
       it 'includes the given default file', ->
         for default_file in Mycha.default_files
@@ -39,7 +39,7 @@ describe 'FileConfiguration', ->
           test_dir_name: 'spec'
           default_files: Mycha.default_files
           run_files: []
-        @result = file_configuration.files
+        @result = file_configuration.files()
 
       it 'includes the given default file', ->
         for default_file in Mycha.default_files
@@ -58,7 +58,7 @@ describe 'FileConfiguration', ->
           test_dir_name: 'test'
           default_files: Mycha.default_files
           run_files: ['test/two_test.coffee']
-        @result = file_configuration.files
+        @result = file_configuration.files()
 
       it 'includes the given default file', ->
         for default_file in Mycha.default_files

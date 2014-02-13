@@ -13,21 +13,24 @@ class FileConfiguration
   # - test_dir_name: the name of the test directory
   # - default_files: any files that should always be loaded (i.e. mycha test_helper)
   # - files: any files provided on the command line
-  constructor: ({root_dir, test_dir_name, default_files, run_files}) ->
+  constructor: ({@root_dir, @test_dir_name, @default_files, @run_files}) ->
 
+
+  files: ->
     # The files that Mycha should provide to Mocha.
-    @files = []
-    @files = @files.concat default_files
-    if run_files.length > 0
-      @files.push path.resolve(root_dir, run_file) for run_file in run_files
+    result = []
+    result = result.concat @default_files
+    if @run_files.length > 0
+      result.push path.resolve(@root_dir, run_file) for run_file in @run_files
     else
-      @files = @files.concat new TestsFinder(path.resolve(root_dir, test_dir_name)).files()
+      result = result.concat new TestsFinder(path.resolve(@root_dir, @test_dir_name)).files()
+    result
 
 
   # Serializes this data into a format so that it can be given to
   # childProcess.spawn.
   to_args: ->
-    @files
+    @files()
 
 
 
