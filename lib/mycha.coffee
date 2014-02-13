@@ -54,7 +54,7 @@ class Mycha
     # The options to provide to Mocha.
     @mocha_configuration = new MochaConfiguration
       run_options: run_options
-      default_mocha_options: Mycha.default_mocha_options,
+      default_mocha_options: Mycha.default_mocha_options
       files: files
 
     # The JS/CS files to provide to Mocha.

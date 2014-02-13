@@ -35,6 +35,7 @@ describe 'FileConfiguration', ->
           test_dir: 'test_data/subdirectories'
           default_files: Mycha.default_files
           files: []
+        @result = file_configuration.files
 
       it 'includes the given default file', ->
         for default_file in Mycha.default_files
@@ -52,6 +53,7 @@ describe 'FileConfiguration', ->
         #   test_dir: 'test/test_data'
         #   default_files: Mycha.default_files
         #   files: ['run', '']
+        @result = file_configuration.files
 
       it 'includes the given default file', ->
         for default_file in Mycha.default_files

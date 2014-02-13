@@ -83,9 +83,9 @@ describe 'Mycha', ->
 
       beforeEach (done) ->
         mycha = new Mycha 'test_data/two_tests'
-        @mycha_call_stub = sinon.stub(mycha, 'call_mocha').yields()
-        mycha.run {}, ['test/test_two.coffee'], =>
-          @mocha_argument = @mycha_call_stub.args[0][0]
+        @mocha_call_stub = sinon.stub(mycha, 'call_mocha').yields()
+        mycha.run {}, ['test/two_test.coffee'], =>
+          @mocha_argument = @mocha_call_stub.args[0][0]
           done()
 
       it 'calls mocha once', ->
