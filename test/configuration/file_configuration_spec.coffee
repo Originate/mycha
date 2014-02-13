@@ -20,7 +20,8 @@ describe 'FileConfiguration', ->
           files: []
 
       it 'includes the given default file', ->
-        expect(@file_configuration.files).to.include Mycha.default_files[0]
+        for default_file in Mycha.default_files
+          expect(@result).to.include(default_file)
 
       it 'includes all files in the "test" directory', ->
         expect(@result).to.include_test_file 'two_tests', 'one_test.coffee'
@@ -36,7 +37,8 @@ describe 'FileConfiguration', ->
           files: []
 
       it 'includes the given default file', ->
-        expect(@file_configuration.files).to.include Mycha.default_files[0]
+        for default_file in Mycha.default_files
+          expect(@result).to.include(default_file)
 
       it 'includes all files in the "test" directory', ->
         expect(@result).to.include_test_file 'custom_test_directory', 'one_spec.coffee'
@@ -51,7 +53,9 @@ describe 'FileConfiguration', ->
         #   default_files: Mycha.default_files
         #   files: ['run', '']
 
-      it 'includes the Mycha helper file'
+      it 'includes the given default file', ->
+        for default_file in Mycha.default_files
+          expect(@result).to.include(default_file)
 
       it 'only runs the given test file'
 
