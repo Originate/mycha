@@ -27,7 +27,7 @@ describe 'Mycha', ->
         expect(@mycha_call_stub).to.have.been.calledOnce
 
       it 'enables the CoffeeScript compiler', ->
-        expect(@mocha_argument).to.contain_consecutive_elements '--compilers', 'coffee:coffee-script'
+        expect(@mocha_argument).to.contain_consecutive_elements '--compilers', 'coffee:coffee-script/register'
 
       it 'uses the dot reporter', ->
         expect(@mocha_argument).to.contain_consecutive_elements '--reporter', 'dot'
@@ -72,7 +72,7 @@ describe 'Mycha', ->
         expect(@mocha_argument).to.contain_consecutive_elements '--reporter', 'spec'
 
       it 'enables the CoffeeScript compiler', ->
-        expect(@mocha_argument).to.contain_consecutive_elements '--compilers', 'coffee:coffee-script'
+        expect(@mocha_argument).to.contain_consecutive_elements '--compilers', 'coffee:coffee-script/register'
 
       it 'activates colors', ->
         expect(@mocha_argument).to.contain '--colors',
@@ -111,7 +111,7 @@ describe 'Mycha', ->
         expect(@mocha_argument).to.contain_consecutive_elements '--reporter', 'spec'
 
       it 'enables the CoffeeScript compiler', ->
-        expect(@mocha_argument).to.contain_consecutive_elements '--compilers', 'coffee:coffee-script'
+        expect(@mocha_argument).to.contain_consecutive_elements '--compilers', 'coffee:coffee-script/register'
 
       it 'activates colors', ->
         expect(@mocha_argument).to.contain '--colors',
@@ -147,7 +147,7 @@ describe 'Mycha', ->
         expect(@mocha_argument).to.contain_consecutive_elements '--reporter', 'foo'
 
       it 'enables the CoffeeScript compiler', ->
-        expect(@mocha_argument).to.contain_consecutive_elements '--compilers', 'coffee:coffee-script'
+        expect(@mocha_argument).to.contain_consecutive_elements '--compilers', 'coffee:coffee-script/register'
 
       it 'activates colors', ->
         expect(@mocha_argument).to.contain '--colors',

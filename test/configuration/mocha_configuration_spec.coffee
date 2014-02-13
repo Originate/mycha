@@ -20,7 +20,7 @@ describe 'MochaConfiguration', ->
           files: []
 
       it 'uses CoffeeScript as the default compiler', ->
-        expect(@mocha_configuration.options.compilers).to.equal 'coffee:coffee-script'
+        expect(@mocha_configuration.options.compilers).to.equal 'coffee:coffee-script/register'
 
       it 'uses the "dot" reporter', ->
         expect(@mocha_configuration.options.reporter).to.equal 'dot'
@@ -59,7 +59,7 @@ describe 'MochaConfiguration', ->
           files: ['one_spec.coffee']
 
       it 'uses CoffeeScript as the default compiler', ->
-        expect(@mocha_configuration.options.compilers).to.equal 'coffee:coffee-script'
+        expect(@mocha_configuration.options.compilers).to.equal 'coffee:coffee-script/register'
 
       it 'uses the "spec" reporter', ->
         expect(@mocha_configuration.options.reporter).to.equal 'spec'
@@ -77,7 +77,7 @@ describe 'MochaConfiguration', ->
           files: ['one_spec.coffee']
 
       it 'uses CoffeeScript as the default compiler', ->
-        expect(@mocha_configuration.options.compilers).to.equal 'coffee:coffee-script'
+        expect(@mocha_configuration.options.compilers).to.equal 'coffee:coffee-script/register'
 
       it 'uses the given custom reporter', ->
         expect(@mocha_configuration.options.reporter).to.equal 'foo'
@@ -123,7 +123,7 @@ describe 'MochaConfiguration', ->
       it 'returns an array of strings', ->
         expect(@result.length).to.equal 5
         expect(@result).to.include '--compilers'
-        expect(@result).to.include 'coffee:coffee-script'
+        expect(@result).to.include 'coffee:coffee-script/register'
         expect(@result).to.include '--reporter'
         expect(@result).to.include 'dot'
         expect(@result).to.include '--colors'

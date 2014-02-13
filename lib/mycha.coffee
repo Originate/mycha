@@ -19,7 +19,7 @@ class Mycha
 
   # Default configuration options for Mocha.
   @default_mocha_options =
-    compilers: "coffee:coffee-script"
+    compilers: 'coffee:coffee-script/register'
     reporter: 'dot'
     colors: yes
 
