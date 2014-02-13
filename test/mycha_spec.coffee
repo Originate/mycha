@@ -108,7 +108,7 @@ describe 'Mycha', ->
         expect(@mycha_call_stub).to.have.been.calledOnce
 
       it 'uses the spec reporter', ->
-        expect(@mocha_argument).to.contain_consecutive_elements '--reporter', 'dot'
+        expect(@mocha_argument).to.contain_consecutive_elements '--reporter', 'spec'
 
       it 'enables the CoffeeScript compiler', ->
         expect(@mocha_argument).to.contain_consecutive_elements '--compilers', 'coffee:coffee-script'
