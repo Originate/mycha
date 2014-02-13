@@ -1,3 +1,4 @@
+path = require 'path'
 chai = require 'chai'
 sinon = require 'sinon'
 chai.use require 'sinon-chai'
@@ -14,65 +15,73 @@ describe 'FileConfiguration', ->
     context 'no user options given', ->
 
       beforeEach ->
-        @file_configuration = new FileConfiguration
-          test_dir: 'test_data/subdirectories'
+        file_configuration = new FileConfiguration
+          root_dir: path.join(process.cwd(), 'test_data', 'two_tests')
+          test_dir_name: 'test'
           default_files: Mycha.default_files
-          files: []
+          run_files: []
+        @result = file_configuration.files()
 
       it 'includes the given default file', ->
-        expect(@file_configuration.files).to.include Mycha.default_files[0]
+        for default_file in Mycha.default_files
+          expect(@result).to.include(default_file)
 
       it 'includes all files in the "test" directory', ->
-        expect(@file_configuration.files).to.include "#{process.cwd()}/test_data/subdirectories/javascript_test.js"
-        expect(@file_configuration.files).to.include "#{process.cwd()}/test_data/subdirectories/javascript_spec.js"
+        expect(@result).to.include_test_file 'two_tests', 'one_test.coffee'
+        expect(@result).to.include_test_file 'two_tests', 'two_test.coffee'
 
 
     context 'custom test directory given', ->
 
       beforeEach ->
-        @file_configuration = new FileConfiguration
-          test_dir: 'test_data/subdirectories'
+        file_configuration = new FileConfiguration
+          root_dir: path.join(process.cwd(), 'test_data', 'custom_test_directory')
+          test_dir_name: 'spec'
           default_files: Mycha.default_files
-          files: []
+          run_files: []
+        @result = file_configuration.files()
 
       it 'includes the given default file', ->
-        expect(@file_configuration.files).to.include Mycha.default_files[0]
+        for default_file in Mycha.default_files
+          expect(@result).to.include(default_file)
 
       it 'includes all files in the "test" directory', ->
-        expect(@file_configuration.files).to.include "#{process.cwd()}/test_data/subdirectories/javascript_test.js"
-
+        expect(@result).to.include_test_file 'custom_test_directory', 'one_spec.coffee'
+        expect(@result).to.include_test_file 'custom_test_directory', 'two_spec.coffee'
 
 
     context 'single test file name given by the user', ->
 
       beforeEach ->
-        # @file_configuration = new FileConfiguration
-        #   test_dir: 'test/test_data'
-        #   default_files: Mycha.default_files
-        #   files: ['run', '']
+        file_configuration = new FileConfiguration
+          root_dir: path.join(process.cwd(), 'test_data', 'two_tests')
+          test_dir_name: 'test'
+          default_files: Mycha.default_files
+          run_files: ['test/two_test.coffee']
+        @result = file_configuration.files()
 
-      it 'includes the Mycha helper file'
+      it 'includes the given default file', ->
+        for default_file in Mycha.default_files
+          expect(@result).to.include(default_file)
 
-      it 'only runs the given test file'
+      it 'only runs the given test file', ->
+        expect(@result).to.include_test_file 'two_tests', 'two_test.coffee'
 
 
   describe 'to_args', ->
 
     beforeEach ->
       file_configuration = new FileConfiguration
-        test_dir: 'test_data/subdirectories/'
+        root_dir: path.join(process.cwd(), 'test_data', 'two_tests')
+        test_dir_name: 'test'
         default_files: Mycha.default_files
-        files: []
+        run_files: []
       @result = file_configuration.to_args()
 
     it 'loads the Mycha helper first', ->
       expect(@result[0]).to.equal "#{process.cwd()}/lib/test_helper.coffee"
 
     it 'provides all test files', ->
-      expect(@result).to.include "#{process.cwd()}/test_data/subdirectories/javascript_test.js"
-      expect(@result).to.include "#{process.cwd()}/test_data/subdirectories/javascript_spec.js"
-      expect(@result).to.include "#{process.cwd()}/test_data/subdirectories/root_level_test.coffee"
-      expect(@result).to.include "#{process.cwd()}/test_data/subdirectories/root_level_spec.coffee"
-      expect(@result).to.include "#{process.cwd()}/test_data/subdirectories/dir/test_in_directory_test.coffee"
-      expect(@result).to.include "#{process.cwd()}/test_data/subdirectories/dir/subdir/test_in_subdirectory_test.coffee"
+      expect(@result).to.include_test_file 'two_tests', 'one_test.coffee'
+      expect(@result).to.include_test_file 'two_tests', 'two_test.coffee'
 
