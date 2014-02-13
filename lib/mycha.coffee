@@ -59,9 +59,10 @@ class Mycha
 
     # The JS/CS files to provide to Mocha.
     @file_configuration = new FileConfiguration
-      test_dir: path.join(@project_directory, @mycha_configuration.options.testDir)
+      root_dir: @project_directory
+      test_dir_name: @mycha_configuration.options.testDir
       default_files: Mycha.default_files
-      files: files
+      run_files: files
 
     @call_mocha @get_mocha_args(),
                 done
