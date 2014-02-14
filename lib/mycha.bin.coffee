@@ -17,8 +17,8 @@ argv = require('optimist')
   .usage(usage_text)
   .check (argv) ->
     command = argv._[0]
-    return unless command
-    throw "\"#{command}\" is not a valid command." unless commands[command]?
+    return unless command  # No command is fine, OptimistParser will default to "run" later.
+    throw "'#{command}' is not a valid command." unless commands[command]?
     throw "" if command is 'help'
   .argv
 
