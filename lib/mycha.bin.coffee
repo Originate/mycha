@@ -17,7 +17,7 @@ argv = require('optimist')
   .usage(usage_text)
   .check (argv) ->
     command = argv._[0]
-    throw "Missing command." unless command?
+    return unless command
     throw "\"#{command}\" is not a valid command." unless commands[command]?
     throw "" if command is 'help'
   .argv
