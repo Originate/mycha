@@ -1,0 +1,57 @@
+#!/bin/bash
+set -e
+
+# Displays usage instructions.
+function help {
+  echo
+  echo " Releases a new version of this library to NPM"
+  echo
+  echo " Usage $(tput bold)tools/release [patch|minor|major]$(tput sgr0)"
+  echo
+  exit 1
+}
+
+# Display help screen if parameters are missing.
+if [ -z $1 ]; then
+  help
+  exit 1
+fi
+
+function echo_header {
+  echo
+  echo "$(tput bold)$1$(tput sgr0)"
+}
+
+function error {
+  echo "$(tput setaf 1)$1$(tput sgr0)"
+  echo
+  exit
+}
+
+echo_header 'CHECKING FOR OPEN FILES'
+if [ $(git status -s | wc -l) != "0" ]; then
+  error 'Please commit your open files first.'
+fi
+
+echo_header 'CHECKING FOR MASTER BRANCH'
+if [ $(git rev-parse --abbrev-ref HEAD) != "master" ]; then
+  error 'You must be in the master branch.'
+fi
+
+echo_header 'UPDATING TO LATEST VERSION FROM REPO'
+git pull
+
+echo_header 'RUNNING TESTS'
+npm test
+
+echo_header 'BUMPING VERSION'
+npm version $1
+
+echo_header 'UPDATING CODE REPOSITORY'
+git push
+git push --tags
+
+echo_header 'PUBLISHING LIBRARY'
+npm publish
+
+echo_header 'All done.'
