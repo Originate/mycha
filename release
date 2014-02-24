@@ -1,0 +1,43 @@
+#!/bin/bash
+set -e
+
+function echo_header {
+  echo
+  tput bold
+  echo $*
+  tput sgr0
+}
+
+function error {
+  echo "$(tput setaf 1)$1$(tput sgr0)"
+  echo
+  exit
+}
+
+echo_header 'CHECKING FOR OPEN FILES'
+if [ $(git status -s | wc -l) != "0" ]; then
+  error 'Please commit your open files first.'
+fi
+
+echo_header 'CHECKING FOR MASTER BRANCH'
+if [ $(git rev-parse --abbrev-ref HEAD) != "master" ]; then
+  error 'You must be in the master branch.'
+fi
+
+echo_header 'UPDATING TO LATEST VERSION FROM REPO'
+git pull
+
+echo_header 'RUNNING TESTS'
+npm test
+
+echo_header 'BUMPING VERSION'
+npm version patch
+
+echo_header 'UPDATING CODE REPOSITORY'
+git push
+git push --tags
+
+echo_header 'PUBLISHING LIBRARY'
+npm publish
+
+echo_header 'All done.'
