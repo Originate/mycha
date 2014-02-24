@@ -3,9 +3,7 @@ set -e
 
 function echo_header {
   echo
-  tput bold
-  echo $*
-  tput sgr0
+  echo "$(tput bold)$1$(tput sgr0)"
 }
 
 function error {
