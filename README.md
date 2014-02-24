@@ -15,3 +15,8 @@ $ npm install mycha
 Place all tests in /test
 
 Run tests with ```mycha run ```.
+
+
+## Development
+
+* deploy a new patch version: `./release`
