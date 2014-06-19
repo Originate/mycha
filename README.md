@@ -6,9 +6,10 @@ My mocha config.
 
 
 ## Install
-```
-$ npm install mycha
-```
+
+* add `"mycha": "latest"` to your `package.json` file
+* `npm install`
+* add `./node_modules/.bin` to your PATH environment variable
 
 
 ## Usage
