@@ -105,7 +105,7 @@ describe 'Mycha', ->
             done()
 
       it 'calls mocha once', ->
-        expect(@mycha_call_stub).to.have.been.calledOnce
+        expect(@mocha_call_stub).to.have.been.calledOnce
 
       it 'uses the spec reporter', ->
         expect(@mocha_argument).to.contain_consecutive_elements '--reporter', 'spec'
@@ -141,7 +141,7 @@ describe 'Mycha', ->
             done()
 
       it 'calls mocha once', ->
-        expect(@mycha_call_stub).to.have.been.calledOnce
+        expect(@mocha_call_stub).to.have.been.calledOnce
 
       it 'uses the foo reporter', ->
         expect(@mocha_argument).to.contain_consecutive_elements '--reporter', 'foo'
