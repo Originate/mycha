@@ -2,20 +2,17 @@
 
 /'maɪ.kɑː/
 
-My mocha config.
-
 
 ## Install
 
-* add `"mycha": "latest"` to your `package.json` file
-* `npm install`
+* `npm install --save-dev mycha`
 * add `./node_modules/.bin` to your PATH environment variable
 
 
 ## Usage
-Place all tests in /test
-
-Run tests with ```mycha run ```.
+* Place all tests in /test
+* Tests must end in `_test.coffee` or `_test.js`
+* Run tests with ```mycha run ```.
 
 
 ## Development
