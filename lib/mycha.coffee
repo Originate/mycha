@@ -77,8 +77,7 @@ class Mycha
   # Parameters:
   # - mocha_args: Array of string arguments to provide to Mocha.
   call_mocha: (mocha_args, done) ->
-    childProcess = child.spawn path.resolve(__dirname, '../node_modules/mocha/bin/mocha'),
-                               mocha_args
+    childProcess = child.spawn require.resolve('mocha/bin/mocha'), mocha_args
     childProcess.stdout.pipe @mycha_configuration.options.stdout
     childProcess.stderr.pipe @mycha_configuration.options.stderr
     childProcess.on 'exit', done if done
