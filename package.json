@@ -1,6 +1,6 @@
 {
   "name": "mycha",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "main": "lib/mycha.js",
   "bin": {
     "mycha": "bin/mycha"
