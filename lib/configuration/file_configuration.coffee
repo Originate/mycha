@@ -10,10 +10,9 @@ class FileConfiguration
 
   # Params:
   # - root_dir: the root directory of the code base
-  # - test_dir_name: the name of the test directory
   # - default_files: any files that should always be loaded (i.e. mycha test_helper)
   # - files: any files provided on the command line
-  constructor: ({@root_dir, @test_dir_name, @default_files, @run_files}) ->
+  constructor: ({@root_dir, @default_files, @run_files}) ->
 
 
   files: ->
@@ -23,7 +22,7 @@ class FileConfiguration
     if @run_files.length > 0
       result.push path.resolve(@root_dir, run_file) for run_file in @run_files
     else
-      result = result.concat new TestsFinder(path.resolve(@root_dir, @test_dir_name)).files()
+      result = result.concat new TestsFinder(path.resolve(@root_dir)).files()
     result
 
 

@@ -17,7 +17,6 @@ describe 'FileConfiguration', ->
       beforeEach ->
         file_configuration = new FileConfiguration
           root_dir: path.join(process.cwd(), 'test_data', 'two_tests')
-          test_dir_name: 'test'
           default_files: Mycha.default_files
           run_files: []
         @result = file_configuration.files()
@@ -27,16 +26,15 @@ describe 'FileConfiguration', ->
           expect(@result).to.include(default_file)
 
       it 'includes all files in the "test" directory', ->
-        expect(@result).to.include_test_file 'two_tests', 'one_test.coffee'
-        expect(@result).to.include_test_file 'two_tests', 'two_test.coffee'
+        expect(@result).to.include_test_file 'two_tests', 'test', 'one_test.coffee'
+        expect(@result).to.include_test_file 'two_tests', 'test', 'two_test.coffee'
 
 
-    context 'custom test directory given', ->
+    context 'tests located in folder other than test', ->
 
       beforeEach ->
         file_configuration = new FileConfiguration
           root_dir: path.join(process.cwd(), 'test_data', 'custom_test_directory')
-          test_dir_name: 'spec'
           default_files: Mycha.default_files
           run_files: []
         @result = file_configuration.files()
@@ -45,9 +43,13 @@ describe 'FileConfiguration', ->
         for default_file in Mycha.default_files
           expect(@result).to.include(default_file)
 
-      it 'includes all files in the "test" directory', ->
-        expect(@result).to.include_test_file 'custom_test_directory', 'one_spec.coffee'
-        expect(@result).to.include_test_file 'custom_test_directory', 'two_spec.coffee'
+
+      it 'includes all test files', ->
+        expect(@result).to.include_test_file 'custom_test_directory', 'spec', 'one_spec.coffee'
+        expect(@result).to.include_test_file 'custom_test_directory', 'spec', 'two_spec.coffee'
+
+      it 'does not include files in the "node_modules" directory', ->
+        expect(@result).to.not.include_test_file 'custom_test_directory', 'node_modules', 'not_found_spec.coffee'
 
 
     context 'single test file name given by the user', ->
@@ -55,7 +57,6 @@ describe 'FileConfiguration', ->
       beforeEach ->
         file_configuration = new FileConfiguration
           root_dir: path.join(process.cwd(), 'test_data', 'two_tests')
-          test_dir_name: 'test'
           default_files: Mycha.default_files
           run_files: ['test/two_test.coffee']
         @result = file_configuration.files()
@@ -65,7 +66,7 @@ describe 'FileConfiguration', ->
           expect(@result).to.include(default_file)
 
       it 'only runs the given test file', ->
-        expect(@result).to.include_test_file 'two_tests', 'two_test.coffee'
+        expect(@result).to.include_test_file 'two_tests', 'test', 'two_test.coffee'
 
 
   describe 'to_args', ->
@@ -73,15 +74,14 @@ describe 'FileConfiguration', ->
     beforeEach ->
       file_configuration = new FileConfiguration
         root_dir: path.join(process.cwd(), 'test_data', 'two_tests')
-        test_dir_name: 'test'
         default_files: Mycha.default_files
         run_files: []
       @result = file_configuration.to_args()
 
     it 'loads the Mycha helper first', ->
-      expect(@result[0]).to.equal "#{process.cwd()}/lib/test_helper.coffee"
+      expect(@result[0]).to.equal path.resolve('lib', 'test_helper.coffee')
 
     it 'provides all test files', ->
-      expect(@result).to.include_test_file 'two_tests', 'one_test.coffee'
-      expect(@result).to.include_test_file 'two_tests', 'two_test.coffee'
+      expect(@result).to.include_test_file 'two_tests', 'test', 'one_test.coffee'
+      expect(@result).to.include_test_file 'two_tests', 'test', 'two_test.coffee'
 

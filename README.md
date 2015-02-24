@@ -10,9 +10,8 @@
 
 
 ## Usage
-* Place all tests in /test
-* Tests must end in `_test.coffee` or `_test.js`
-* Run tests with ```mycha run ```.
+* Tests must end in `_(spec|test).(coffee|js)`
+* Run tests with ```mycha run```
 
 
 ## Development

@@ -2,8 +2,8 @@ OptimistParser = require './helpers/optimist_parser'
 
 
 commands =
-  run: "Runs all tests found in /test"
-  watch: "Runs all tests in /test and watches for changes"
+  run: "Runs all tests"
+  watch: "Runs all tests and watches for changes"
   help: "Shows this help page"
 
 usage_text = """

@@ -14,7 +14,6 @@ class Mycha
   @default_mycha_options =
     stdout: process.stdout
     stderr: process.stderr
-    testDir: 'test'
 
 
   # Default configuration options for Mocha.
@@ -60,7 +59,6 @@ class Mycha
     # The JS/CS files to provide to Mocha.
     @file_configuration = new FileConfiguration
       root_dir: @project_directory
-      test_dir_name: @mycha_configuration.options.testDir
       default_files: Mycha.default_files
       run_files: run_files
 

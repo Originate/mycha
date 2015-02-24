@@ -23,7 +23,7 @@ class TestsFinder
       if stat.isFile()
         continue unless @_is_test_file file
         files.push filePath
-      else if stat.isDirectory()
+      else if stat.isDirectory() and file isnt 'node_modules'
         @_search_directory filePath, files
     files.sort()
 

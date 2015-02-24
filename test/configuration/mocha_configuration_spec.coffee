@@ -36,7 +36,6 @@ describe 'MochaConfiguration', ->
           stdout: 'custom stdout'
           stderr: 'custom stderr'
           reporter: 'custom reporter'
-          testDir: 'test/test_data'
           compilers: 'foo:bar'
         @mocha_configuration = new MochaConfiguration
           run_options: user_options
@@ -93,7 +92,6 @@ describe 'MochaConfiguration', ->
         stdout: 'custom stdout'
         stderr: 'custom stderr'
         reporter: 'custom reporter'
-        testDir: 'test/test_data'
         compilers: 'foo:bar'
       mocha_configuration = new MochaConfiguration
         run_options: {}

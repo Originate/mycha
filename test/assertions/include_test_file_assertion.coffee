@@ -1,4 +1,5 @@
 _ = require 'underscore'
+path = require 'path'
 
 
 # Domain-specifc matcher for checking if the result list
@@ -12,25 +13,12 @@ class IncludeTestFileAssertion
 
   # The new matcher method provided by this assertion.
   # This is the method that gets included in tests.
-  @matcher: (test_dir, filename) ->
+  @matcher: (pathParts...) ->
     array = @_obj
-    @assert IncludeTestFileAssertion.contains_test_file(array,
-                                                        test_dir,
-                                                        filename),
-            "expected #{array} to contain test file #{test_dir}/test/#{filename}",
-            "expected #{array} to not contain test file #{test_dir}/test/#{filename}"
-
-
-  # Returns whether the given array of filenames contains the given file
-  # in the given directory.
-  @contains_test_file: (array, test_dir, filename) ->
-
-    # Convert the absolute paths in the result to relative paths,
-    # to make them easier to compare.
-    test_directory_path = "#{process.cwd()}/test_data/#{test_dir}/test/"
-    shortened_actual_data = _(array).map( (path) -> path.substr test_directory_path.length)
-    shortened_actual_data.indexOf(filename) > -1
-
+    expectedFilePath = path.resolve 'test_data', pathParts...
+    @assert _.any(array, (filePath) -> filePath is expectedFilePath),
+            "expected #{array} to contain #{expectedFilePath}",
+            "expected #{array} to not contain #{expectedFilePath}"
 
 
 module.exports = IncludeTestFileAssertion
