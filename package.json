@@ -6,20 +6,36 @@
     "mycha": "bin/mycha"
   },
   "dependencies": {
-    "chai": "^2.0.0",
+    "async": "^0.9.0",
     "coffee-script": "^1.9.0",
+    "colors": "^1.0.3",
+    "cross-spawn": "^0.2.6",
+    "dargs": "^4.0.0",
+    "fs-extra": "^0.16.5",
+    "glob": "^5.0.3",
+    "lodash": "^3.5.0",
+    "minimist": "^1.1.1",
     "mocha": "^2.1.0",
-    "optimist": "^0.6.1",
-    "sinon": "^1.12.2",
-    "sinon-chai": "^2.7.0",
-    "underscore": "^1.7.0"
+    "npm": "^2.7.3",
+    "prompt": "^0.2.14"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/Originate/mycha.git"
   },
   "scripts": {
-    "test": "mocha --compilers coffee:coffee-script/register --reporter spec test/*_spec.coffee test/**/*_spec.coffee"
+    "unit-tests": "./bin/mycha",
+    "feature-tests": "cucumber-js",
+    "test": "npm run unit-tests && npm run feature-tests"
   },
-  "author": "Alex David"
+  "author": "Alex David",
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "chai-fs": "^0.1.0",
+    "cucumber": "^0.4.8",
+    "fixture-stdout": "^0.2.1",
+    "sinon": "^1.14.1",
+    "sinon-chai": "^2.7.0",
+    "tmp": "0.0.25"
+  }
 }
