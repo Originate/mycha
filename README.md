@@ -47,10 +47,8 @@ and provides a utility that gets tests up and running quickly
         compilers: 'coffee:coffee-script/register'
         reporter: 'dot'
 
-      # Regular expressions for files that are tests
-      testFiles: [
-        /_(spec|test)\\.(coffee|js)$/
-      ]
+      # Regular expression used for finding tests
+      testFileRegex: /_(spec|test)\.(coffee|js)$/
 
       # Files to include before all tests
       testHelpers: [
