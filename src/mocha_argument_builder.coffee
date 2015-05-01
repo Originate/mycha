@@ -1,8 +1,5 @@
-_ = require 'lodash'
 dargs = require 'dargs'
-fs = require 'fs'
 minimist = require 'minimist'
-path = require 'path'
 TestFinder = require './test_finder'
 
 

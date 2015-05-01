@@ -1,2 +1,6 @@
-test/
-test_data/
+features/
+mycha.coffee
+release
+spec/
+src/
+.travis.yml

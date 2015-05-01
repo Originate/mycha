@@ -24,9 +24,12 @@
     "url": "git://github.com/Originate/mycha.git"
   },
   "scripts": {
-    "unit-tests": "./bin/mycha",
+    "build": "find ./src -name '*.coffee' -not -name '*_spec.coffee' | xargs coffee --compile --output lib/",
     "feature-tests": "cucumber-js",
-    "test": "npm run unit-tests && npm run feature-tests"
+    "prefeature-tests": "npm run build",
+    "publish": "npm run build",
+    "test": "npm run unit-tests && npm run feature-tests",
+    "unit-tests": "coffee src/cli.coffee"
   },
   "author": "Alex David",
   "devDependencies": {
