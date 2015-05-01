@@ -1,4 +1,4 @@
-fsExtra = require 'fs-extra'
+{outputTestFile} = require '../../spec/file_helpers'
 path = require 'path'
 
 
@@ -9,11 +9,11 @@ module.exports = ->
 
 
   @Given /^I have 1 (passing|failing) test$/, (status, done) ->
-    fsExtra.outputFile path.join(@tmpDir, 'example_spec.coffee'), @testContent(status), done
+    outputTestFile path.join(@tmpDir, 'example_spec.coffee'), passing: status is 'passing', done
 
 
   @Given /^I have the file "([^"]*)" with 1 (passing|failing) test$/, (filePath, status, done) ->
-    fsExtra.outputFile path.join(@tmpDir, filePath), @testContent(status), done
+    outputTestFile path.join(@tmpDir, filePath), passing: status is 'passing', done
 
 
   @Then /^I now have the file "([^"]*)" with the contents$/, (fileName, fileContent, done) ->
