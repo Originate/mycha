@@ -35,8 +35,8 @@ Feature: Installation
           compilers: 'coffee:coffee-script/register'
           reporter: 'dot'
 
-        # Regular expression used for finding tests
-        testFileRegex: /_(spec|test)\.(coffee|js)$/
+        # Path patten used for finding tests (see https://github.com/isaacs/minimatch)
+        testFilePattern: '**/*_{spec,test}.{coffee,js}'
 
         # Files to include before all tests
         testHelpers: [

@@ -12,12 +12,13 @@ describe 'TestFinder', ->
 
   describe 'find', ->
     beforeEach ->
-      @testFinder = new TestFinder cwd: @tmpDir, testFileRegex: /_spec.coffee$/
+      @testFinder = new TestFinder cwd: @tmpDir, testFilePattern: "**/*_spec.coffee"
 
 
     context 'with non-test file', ->
       beforeEach (done) ->
-        fsExtra.outputFile path.join(@tmpDir, 'server.coffee'), '', (err) =>
+        filePath = path.join @tmpDir, 'server.coffee'
+        fsExtra.outputFile filePath, '', (err) =>
           if err then return done err
           @testFinder.find (@err, @files) => done()
 
@@ -30,7 +31,8 @@ describe 'TestFinder', ->
 
     context 'with test file', ->
       beforeEach (done) ->
-        fsExtra.outputFile path.join(@tmpDir, 'server_spec.coffee'), '', (err) =>
+        @filePath = path.join @tmpDir, 'server_spec.coffee'
+        fsExtra.outputFile @filePath, '', (err) =>
           if err then return done err
           @testFinder.find (@err, @files) => done()
 
@@ -38,12 +40,13 @@ describe 'TestFinder', ->
         expect(@err).to.not.exist
 
       it 'returns the found test', ->
-        expect(@files).to.eql [path.join(@tmpDir, 'server_spec.coffee')]
+        expect(@files).to.eql [@filePath]
 
 
     context 'with test file in subdirectory', ->
       beforeEach (done) ->
-        fsExtra.outputFile path.join(@tmpDir, 'lib', 'server_spec.coffee'), '', (err) =>
+        @filePath = path.join @tmpDir, 'lib', 'server_spec.coffee'
+        fsExtra.outputFile @filePath, '', (err) =>
           if err then return done err
           @testFinder.find (@err, @files) => done()
 
@@ -51,12 +54,13 @@ describe 'TestFinder', ->
         expect(@err).to.not.exist
 
       it 'returns the found test', ->
-        expect(@files).to.eql [path.join(@tmpDir, 'lib', 'server_spec.coffee')]
+        expect(@files).to.eql [@filePath]
 
 
     context 'with test file in node_modules', ->
       beforeEach (done) ->
-        fsExtra.outputFile path.join(@tmpDir, 'node_modules', 'server_spec.coffee'), '', (err) =>
+        filePath = path.join @tmpDir, 'node_modules', 'server_spec.coffee'
+        fsExtra.outputFile filePath, '', (err) =>
           if err then return done err
           @testFinder.find (@err, @files) => done()
 

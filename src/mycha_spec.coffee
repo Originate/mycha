@@ -8,7 +8,7 @@ tmp = require 'tmp'
 config =
   mochaOptions:
     compilers: 'coffee:coffee-script/register'
-  testFileRegex: /_spec.coffee$/
+  testFilePattern: '**/*_{spec,test}.{coffee,js}'
   testHelpers: [path.join(__dirname, '..', 'spec', 'spec_helper.coffee')]
 
 
