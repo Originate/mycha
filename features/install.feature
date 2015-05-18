@@ -1,15 +1,19 @@
-Feature: install
+Feature: Installation
 
-  Scenario:
-    Given I am in a node project
-    When I run "mycha install" and respond to the prompt with "spec/spec_helper.coffee"
+  As a developer setting up the test framework for my project
+  I want the infrastructure required by Mycha being added for me by an installer
+  So that I can start testing without repetitive setup work.
 
-    Then I now have the following devDependencies in my "package.json"
+
+  Scenario: fresh install
+    Given I am working on a Node.js project
+    When I run "mycha install" and enter "spec/spec_helper.coffee"
+    Then my "package.json" now lists the devDependencies
       | NPM MODULE |
       | chai       |
       | sinon      |
       | sinon-chai |
-    And I now have the file "spec/spec_helper.coffee" with the contents
+    And my project now has a file "spec/spec_helper.coffee" containing
       """
       chai = require 'chai'
       sinon = require 'sinon'
@@ -21,7 +25,7 @@ Feature: install
 
       process.env.NODE_ENV = 'test'
       """
-    And I now have the file "mycha.coffee" with the contents
+    And my project now has a file "mycha.coffee" containing
       """
       module.exports =
 

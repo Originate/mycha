@@ -1,21 +1,31 @@
-{outputTestFile} = require '../../spec/file_helpers'
+{createTest} = require '../../spec/file_helpers'
 path = require 'path'
+
+
+isPassing = (status) -> status is 'passing'
+
 
 
 module.exports = ->
 
-  @Given /^I have no test files$/, (done) ->
-    done() # No op for readability
+  @Given /^my project has no test files$/, (done) ->
+    done()
 
 
-  @Given /^I have 1 (passing|failing) test$/, (status, done) ->
-    outputTestFile path.join(@tmpDir, 'example_spec.coffee'), passing: status is 'passing', done
+  @Given /^my project has a (passing|failing) test$/, (status, done) ->
+    createTest
+      filePath: path.join(@tmpDir, 'example_spec.coffee')
+      passing: isPassing(status)
+      done
 
 
-  @Given /^I have the file "([^"]*)" with 1 (passing|failing) test$/, (filePath, status, done) ->
-    outputTestFile path.join(@tmpDir, filePath), passing: status is 'passing', done
+  @Given /^my project has a file "([^"]*)" containing a (passing|failing) test$/, (filePath, status, done) ->
+    createTest
+      filePath: path.join(@tmpDir, filePath)
+      passing: isPassing(status)
+      done
 
 
-  @Then /^I now have the file "([^"]*)" with the contents$/, (fileName, fileContent, done) ->
+  @Then /^my project now has a file "([^"]*)" containing$/, (fileName, fileContent, done) ->
     expect(path.join @tmpDir, fileName).to.have.content fileContent
     done()

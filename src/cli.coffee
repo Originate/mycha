@@ -15,7 +15,7 @@ getTestHelperPath = (done) ->
   prompt.get [
     description: 'Default test helper path',
     name: 'testHelperPath'
-    required: true
+    required: yes
   ], (err, {testHelperPath} = {}) ->
     if err then return done err
     done null, testHelperPath

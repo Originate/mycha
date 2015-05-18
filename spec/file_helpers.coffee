@@ -13,8 +13,8 @@ testContent = (passing) ->
     '''
 
 
-outputTestFile = (filePath, {passing}, done) ->
+createTest = ({filePath, passing}, done) ->
   fsExtra.outputFile filePath, testContent(passing), done
 
 
-module.exports = {outputTestFile}
+module.exports = {createTest}

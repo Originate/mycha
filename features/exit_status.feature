@@ -1,16 +1,21 @@
-Feature: running tests has the correct exit status
+Feature: Command-line exit status
+
+  As an administrator setting up continuous integration
+  I want Mycha to follow the CLI exit status standards
+  So that my builds only pass when all my tests pass
+
 
   Background:
-    Given I have a installed mycha
+    Given I have Mycha installed
 
 
-  Scenario: passing test
-    Given I have 1 passing test
+  Scenario: passing test suite
+    Given my project has a passing test
     When I run "mycha"
-    Then it has exit status 0
+    Then it finishes with status 0
 
 
-  Scenario: failing test
-    Given I have 1 failing test
+  Scenario: failing test suite
+    Given my project has a failing test
     When I run "mycha"
-    Then it has exit status 1
+    Then it finishes with status 1

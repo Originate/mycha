@@ -1,29 +1,22 @@
-Feature: running tests automatically find all test files
+Feature: Automatic test file discovery
+
+  As a developer running tests
+  I want Mycha to find all existing test files for me
+  So that I don't have to manually provide them through complicated command-line arguments.
+
 
   Background:
-    Given I have a installed mycha
+    Given I have Mycha installed
 
 
-  Scenario: no tests
-    Given I have no test files
+  Scenario: without test files
+    Given my project has no test files
     When I run "mycha"
     Then I see "0 passing"
 
 
-  Scenario: test in root directory
-    Given I have the file "one_spec.coffee" with 1 passing test
-    When I run "mycha"
-    Then I see "1 passing"
-
-
-  Scenario: test in subdirectory
-    Given I have the file "dir/one_spec.coffee" with 1 passing test
-    When I run "mycha"
-    Then I see "1 passing"
-
-
-  Scenario: multiple tests
-    Given I have the file "one_spec.coffee" with 1 passing test
-    And I have the file "dir/two_spec.coffee" with 1 passing test
+  Scenario: tests in multiple locations
+    Given my project has a file "foo_spec.coffee" containing a passing test
+    And my project has a file "dir/bar_spec.coffee" containing a passing test
     When I run "mycha"
     Then I see "2 passing"

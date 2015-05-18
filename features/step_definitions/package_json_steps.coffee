@@ -4,11 +4,13 @@ path = require 'path'
 
 module.exports = ->
 
-  @Given /^I am in a node project$/, (done) ->
-    fsExtra.outputJson path.join(@tmpDir, 'package.json'), name: '123', done
+  @Given /^I am working on a Node.js project$/, (done) ->
+    fsExtra.outputJson path.join(@tmpDir, 'package.json'),
+                       name: 'foo',
+                       done
 
 
-  @Then /^I now have the following devDependencies in my "package.json"$/, (table, done) ->
+  @Then /^my "package.json" now lists the devDependencies$/, (table, done) ->
     modules = (row[0] for row in table.rows())
     fsExtra.readJson path.join(@tmpDir, 'package.json'), (err, packageJson) ->
       if err then return done err

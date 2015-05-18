@@ -1,6 +1,6 @@
 async = require 'async'
 Mycha = require './mycha'
-{outputTestFile} = require '../spec/file_helpers'
+{createTest} = require '../spec/file_helpers'
 path = require 'path'
 tmp = require 'tmp'
 
@@ -34,7 +34,10 @@ describe 'Mycha', ->
       beforeEach (done) ->
         async.series [
           (next) =>
-            outputTestFile path.join(@tmpDir, 'one_spec.coffee'), passing: yes, next
+            createTest
+              filePath: path.join(@tmpDir, 'one_spec.coffee')
+              passing: yes
+              next
           (next) =>
             Mycha.run {argv: [], config, cwd: @tmpDir, silent: yes}, (@err, @exitCode) => next()
         ], done
@@ -50,7 +53,10 @@ describe 'Mycha', ->
       beforeEach (done) ->
         async.series [
           (next) =>
-            outputTestFile path.join(@tmpDir, 'one_spec.coffee'), passing: no, next
+            createTest
+              filePath: path.join(@tmpDir, 'one_spec.coffee'),
+              passing: no,
+              next
           (next) =>
             Mycha.run {argv: [], config, cwd: @tmpDir, silent: yes}, (@err, @exitCode) => next()
         ], done
