@@ -25,7 +25,7 @@
   },
   "scripts": {
     "build": "find ./src -name '*.coffee' -not -name '*_spec.coffee' | xargs coffee --compile --output lib/",
-    "feature-tests": "cucumber-js",
+    "feature-tests": "cucumber-js -f progress --strict",
     "prefeature-tests": "npm run build",
     "publish": "npm run build",
     "test": "npm run unit-tests && npm run feature-tests",
@@ -35,7 +35,7 @@
   "devDependencies": {
     "chai": "^1.10.0",
     "chai-fs": "^0.1.0",
-    "cucumber": "^0.4.8",
+    "cucumber": "^0.4.9",
     "fixture-stdout": "^0.2.1",
     "sinon": "^1.14.1",
     "sinon-chai": "^2.7.0",
