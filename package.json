@@ -33,10 +33,12 @@
   },
   "author": "Alex David",
   "devDependencies": {
+    "blanket": "^1.1.7",
     "chai": "^1.10.0",
     "chai-fs": "^0.1.0",
     "cucumber": "^0.4.9",
     "fixture-stdout": "^0.2.1",
+    "mocha-multi": "^0.7.1",
     "sinon": "^1.14.1",
     "sinon-chai": "^2.7.0",
     "tmp": "0.0.26"

@@ -4,12 +4,12 @@ spawn = require 'cross-spawn'
 
 class MochaRunner
 
-  constructor: ({@args, @silent}) ->
+  constructor: ({@args, @env, @silent}) ->
 
 
   run: (done) ->
     stdio = if @silent then 'ignore' else 'inherit'
-    childProcess = spawn mochaExecutablePath, @args, {stdio}
+    childProcess = spawn mochaExecutablePath, @args, {@env, stdio}
     childProcess.on 'exit', (exitCode) -> done null, exitCode
 
 

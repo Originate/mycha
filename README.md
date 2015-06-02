@@ -41,6 +41,9 @@ and provides a utility that gets tests up and running quickly
     ```coffee
     module.exports =
 
+      # Environment variables to add to process.env when running mocha
+      mochaEnv: {}
+
       # Default options to pass to mocha (can be overriden by command line options)
       mochaOptions:
         colors: yes
