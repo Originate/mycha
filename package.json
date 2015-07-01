@@ -31,7 +31,7 @@
     "test": "npm run unit-tests && npm run feature-tests",
     "unit-tests": "coffee src/cli.coffee"
   },
-  "author": "Alex David",
+  "author": "Alex David, Charlie Rudolph, Kevin Goslar",
   "devDependencies": {
     "blanket": "^1.1.7",
     "chai": "^1.10.0",
