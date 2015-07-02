@@ -66,4 +66,4 @@ and provides a utility that gets tests up and running quickly
 
 ## Development
 
-* deploy a new patch version: `./release`
+see our [developer documentation](CONTRIBUTING.md)
