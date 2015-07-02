@@ -65,7 +65,7 @@ describe 'MochaArgumentBuilder', ->
 
 
       context 'test finder returns no files', ->
-        beforeEach (done)->
+        beforeEach (done) ->
           TestFinder::find.callsArgWith 0, null, []
           @argumentBuilder.build (@err, @args) => done()
 

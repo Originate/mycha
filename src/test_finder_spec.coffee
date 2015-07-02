@@ -12,7 +12,7 @@ describe 'TestFinder', ->
 
   describe 'find', ->
     beforeEach ->
-      @testFinder = new TestFinder cwd: @tmpDir, testFilePattern: "**/*_spec.coffee"
+      @testFinder = new TestFinder cwd: @tmpDir, testFilePattern: '**/*_spec.coffee'
 
 
     context 'with non-test file', ->

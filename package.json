@@ -26,11 +26,12 @@
   "scripts": {
     "build": "find ./src -name '*.coffee' -not -name '*_spec.coffee' | xargs coffee --compile --output lib/",
     "feature-tests": "cucumber-js -f progress --strict",
+    "lint": "find . -name '*.coffee' -not -path './node_modules/*' | xargs coffeelint -f coffeelint.json5",
     "postpublish": "git push && git push --tags",
     "prefeature-tests": "npm run build",
     "prepublish": "npm run build",
     "preversion": "npm test",
-    "test": "npm run unit-tests && npm run feature-tests",
+    "test": "npm run lint && npm run unit-tests && npm run feature-tests",
     "unit-tests": "coffee src/cli.coffee"
   },
   "author": "Alex David, Charlie Rudolph, Kevin Goslar",
@@ -38,6 +39,7 @@
     "blanket": "^1.1.7",
     "chai": "^1.10.0",
     "chai-fs": "^0.1.0",
+    "coffeelint": "^1.10.1",
     "cucumber": "^0.4.9",
     "fixture-stdout": "^0.2.1",
     "mocha-multi": "^0.7.1",
