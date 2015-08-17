@@ -32,7 +32,9 @@
     "prepublish": "npm run build",
     "preversion": "npm test",
     "test": "npm run lint && npm run unit-tests && npm run feature-tests",
-    "unit-tests": "coffee src/cli.coffee"
+    "unit-tests": "coffee src/cli.coffee",
+    "update": "david update && npm test",
+    "update-check": "david"
   },
   "author": "Alex David, Charlie Rudolph, Kevin Goslar",
   "devDependencies": {
@@ -41,6 +43,7 @@
     "chai-fs": "^0.1.0",
     "coffeelint": "^1.10.1",
     "cucumber": "^0.4.9",
+    "david": "^6.1.6",
     "fixture-stdout": "^0.2.1",
     "mocha-multi": "^0.7.1",
     "sinon": "^1.14.1",
