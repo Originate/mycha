@@ -39,15 +39,14 @@
   "author": "Alex David, Charlie Rudolph, Kevin Goslar",
   "devDependencies": {
     "blanket": "^1.1.7",
-    "chai": "^1.10.0",
-    "chai-fs": "^0.1.0",
+    "chai": "^3.2.0",
     "coffeelint": "^1.10.1",
-    "cucumber": "^0.4.9",
+    "cucumber": "^0.5.2",
     "david": "^6.1.6",
     "fixture-stdout": "^0.2.1",
     "mocha-multi": "^0.7.1",
     "sinon": "^1.14.1",
     "sinon-chai": "^2.7.0",
-    "tmp": "0.0.26"
+    "tmp": "0.0.27"
   }
 }

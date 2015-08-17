@@ -29,16 +29,14 @@ module.exports = ->
     childProcess.on 'exit', -> done()
 
 
-  @Then /^I see "([^"]*)"$/, (text, done) ->
+  @Then /^I see "([^"]*)"$/, (text) ->
     expect(@stdout).to.include text
-    done()
 
 
-  @Then /^it finishes with status (\d+)$/, (status, done) ->
+  @Then /^it finishes with status (\d+)$/, (status) ->
     if status is '0'
       expect(@error).to.not.exist
     else
       @expectedError = yes
       expect(@error).to.be.instanceOf Error
       expect(@error.message).to.contain 'Command failed'
-    done()

@@ -1,4 +1,5 @@
 {createTest} = require '../../spec/file_helpers'
+fs = require 'fs'
 path = require 'path'
 
 
@@ -8,8 +9,7 @@ isPassing = (status) -> status is 'passing'
 
 module.exports = ->
 
-  @Given /^my project has no test files$/, (done) ->
-    done()
+  @Given /^my project has no test files$/, ->
 
 
   @Given /^my project has a (passing|failing) test$/, (status, done) ->
@@ -27,5 +27,7 @@ module.exports = ->
 
 
   @Then /^my project now has a file "([^"]*)" containing$/, (fileName, fileContent, done) ->
-    expect(path.join @tmpDir, fileName).to.have.content fileContent
-    done()
+    fs.readFile path.join(@tmpDir, fileName), 'utf8', (err, content) ->
+      if err then return done err
+      expect(content).to.eql fileContent
+      done()

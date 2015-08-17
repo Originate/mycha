@@ -7,8 +7,7 @@ module.exports = ->
     tmp.dir unsafeCleanup: yes, (err, @tmpDir) => done err
 
 
-  @After (done) ->
+  @After ->
     if @error and not @expectedError
       console.log "#{@stdout}\n#{@stderr}"
-      return done Error 'command failed unexpectedly'
-    done()
+      throw Error 'command failed unexpectedly'
