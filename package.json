@@ -6,12 +6,12 @@
     "mycha": "bin/mycha"
   },
   "dependencies": {
-    "async": "^0.9.0",
+    "async": "^1.4.2",
     "coffee-script": "^1.9.0",
     "colors": "^1.0.3",
     "cross-spawn-async": "^2.0.0",
     "dargs": "^4.0.0",
-    "fs-extra": "^0.18.2",
+    "fs-extra": "^0.23.1",
     "glob": "^5.0.3",
     "lodash": "^3.5.0",
     "minimist": "^1.1.1",
