@@ -1,5 +1,5 @@
 mochaExecutablePath = require.resolve 'mocha/bin/mocha'
-spawn = require 'cross-spawn'
+spawn = require 'cross-spawn-async'
 
 
 class MochaRunner
