@@ -3,7 +3,7 @@ tmp = require 'tmp'
 
 module.exports = ->
 
-  @Before (done) ->
+  @Before (scenario, done) ->
     tmp.dir unsafeCleanup: yes, (err, @tmpDir) => done err
 
 
