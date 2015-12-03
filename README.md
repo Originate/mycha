@@ -1,4 +1,4 @@
-# Mycha [![Build Status](https://travis-ci.org/Originate/mycha.png?branch=master)](https://travis-ci.org/Originate/mycha) [![Dependency Status](https://david-dm.org/Originate/mycha.svg)](https://david-dm.org/Originate/mycha)
+# Mycha [![Build Status](https://travis-ci.org/Originate/mycha.svg?branch=master)](https://travis-ci.org/Originate/mycha) [![Dependency Status](https://david-dm.org/Originate/mycha.svg)](https://david-dm.org/Originate/mycha)
 
 /'maɪ.kɑː/
 
