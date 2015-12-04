@@ -1,8 +1,8 @@
 async = require 'async'
 colors = require 'colors'
 fsExtra = require 'fs-extra'
-npm = require 'npm'
 path = require 'path'
+spawn = require 'cross-spawn-async'
 
 
 class MychaInstaller
@@ -19,10 +19,12 @@ class MychaInstaller
 
 
   _installDependencies: (done) =>
-    @_writeToStdout colors.bold('npm install --save-dev chai sinon sinon-chai'), lineBefore: yes
-    npm.load 'save-dev': yes, (err) =>
-      if err then return done err
-      npm.commands.install @cwd, ['chai', 'sinon', 'sinon-chai'], done
+    cmd = 'npm'
+    args = ['install', '--save-dev', 'chai', 'sinon', 'sinon-chai']
+    @_writeToStdout colors.bold([cmd, args...].join ' '), lineBefore: yes
+    child = spawn cmd, args, {@cwd, stdio: 'inherit'}
+    child.once 'error', done
+    child.once 'close', done
 
 
   _writeMychaConfig: (done) =>

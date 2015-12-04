@@ -1,17 +1,11 @@
 {exec, fork} = require 'child_process'
-MychaInstaller = require '../../lib/mycha_installer'
 path = require 'path'
-StdOutFixture = require 'fixture-stdout'
-fixtures = (new StdOutFixture {stream} for stream in [process.stdout, process.stderr])
 
 
 module.exports = ->
 
-  @Given /^I have Mycha installed$/, (done) ->
-    fixture.capture(-> false) for fixture in fixtures
-    new MychaInstaller(cwd: @tmpDir, testHelperPath: 'spec/spec_helper.coffee').install ->
-      fixture.release() for fixture in fixtures
-      done()
+  @Given /^I have Mycha installed$/, {timeout: 10000}, (done) ->
+    @installMycha 'spec/spec_helper.coffee', done
 
 
   @When /^I run "([^"]*)"$/, (command, done) ->
@@ -21,12 +15,8 @@ module.exports = ->
          (@error, @stdout, @stderr) => done()
 
 
-  @When /^I run "mycha ([^"]*)" and enter "([^"]*)"$/, (args, input, done) ->
-    childProcess = fork @mychaPath,
-                        args.split(' '),
-                        silent: yes, cwd: @tmpDir
-    childProcess.stdin.write "#{input}\n", 'utf-8'
-    childProcess.on 'exit', -> done()
+  @When /^I run "mycha install" and enter "([^"]*)"$/, {timeout: 10000}, (testHelperPath, done) ->
+    @installMycha testHelperPath, done
 
 
   @Then /^I see "([^"]*)"$/, (text) ->
