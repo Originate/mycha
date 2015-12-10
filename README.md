@@ -20,9 +20,7 @@ and provides a utility that gets tests up and running quickly
 
   * runs
     ```
-    npm install --save-dev chai
-    npm install --save-dev sinon
-    npm install --save-dev sinon-chai
+    npm install --save-dev chai sinon sinon-chai
     ```
 
   * writes to `testHelperPath`
