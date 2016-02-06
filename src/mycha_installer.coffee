@@ -29,30 +29,27 @@ class MychaInstaller
 
   _writeMychaConfig: (done) =>
     fsExtra.outputFile(
-      path.join(@cwd, 'mycha.coffee')
+      path.join(@cwd, 'mycha.yml')
       """
-      module.exports =
+      # Environment variables to add to process.env when running mocha
+      # mochaEnv:
 
-        # Environment variables to add to process.env when running mocha
-        mochaEnv: {}
+      # Default options to pass to mocha (can be overriden by command line options)
+      mochaOptions:
+        colors: true
+        compilers: coffee:coffee-script/register
+        reporter: dot
 
-        # Default options to pass to mocha (can be overriden by command line options)
-        mochaOptions:
-          colors: yes
-          compilers: 'coffee:coffee-script/register'
-          reporter: 'dot'
+      # Path patten used for finding tests (see https://github.com/isaacs/minimatch)
+      testFilePattern: '**/*_{spec,test}.{coffee,js}'
 
-        # Path patten used for finding tests (see https://github.com/isaacs/minimatch)
-        testFilePattern: '**/*_{spec,test}.{coffee,js}'
-
-        # Files to include before all tests
-        testHelpers: [
-          '#{@testHelperPath}'
-        ]
+      # Files to include before all tests
+      testHelpers:
+        - #{@testHelperPath}
       """
       (err) =>
         if err then return done err
-        @_writeToStdout "#{colors.green 'create'} mycha.coffee", lineBefore: yes
+        @_writeToStdout "#{colors.green 'create'} mycha.yml", lineBefore: yes
         done())
 
 
