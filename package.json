@@ -14,10 +14,10 @@
     "fs-extra": "^0.26.2",
     "glob": "^6.0.1",
     "js-yaml": "^3.5.2",
-    "lodash": "^3.5.0",
+    "lodash": "^4.3.0",
     "minimist": "^1.1.1",
     "mocha": "^2.1.0",
-    "prompt": "^0.2.14"
+    "prompt": "^0.3.0"
   },
   "repository": {
     "type": "git",
