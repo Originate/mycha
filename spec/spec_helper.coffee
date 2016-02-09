@@ -1,7 +1,7 @@
 require('blanket')
   pattern: ['']
   loader: './node-loaders/coffee-script'
-  'data-cover-never': ['features', 'lib', 'node_modules', 'spec']
+  'data-cover-never': ['dist', 'features', 'node_modules', 'spec']
 
 chai = require 'chai'
 sinon = require 'sinon'

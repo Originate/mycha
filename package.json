@@ -1,7 +1,7 @@
 {
   "name": "mycha",
   "version": "1.0.0",
-  "main": "lib/mycha.js",
+  "main": "dist/mycha.js",
   "bin": {
     "mycha": "bin/mycha"
   },
@@ -24,7 +24,7 @@
     "url": "git://github.com/Originate/mycha.git"
   },
   "scripts": {
-    "build": "find ./src -name '*.coffee' -not -name '*_spec.coffee' | xargs coffee --compile --output lib/",
+    "build": "find ./src -name '*.coffee' -not -name '*_spec.coffee' | xargs coffee --compile --output dist/",
     "feature-tests": "cucumber-js -f progress",
     "lint": "find . -name '*.coffee' -not -path './node_modules/*' | xargs coffeelint -f coffeelint.json5",
     "postpublish": "git push && git push --tags",
@@ -48,5 +48,10 @@
     "sinon-chai": "^2.7.0",
     "tmp": "0.0.28"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "files": [
+    "bin",
+    "dist",
+    "scaffold"
+  ]
 }
