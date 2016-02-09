@@ -12,7 +12,7 @@ describe 'TestFinder', ->
 
   describe 'find', ->
     beforeEach ->
-      @testFinder = new TestFinder cwd: @tmpDir, testFilePattern: '**/*_spec.coffee'
+      @testFinder = new TestFinder cwd: @tmpDir, testFilePattern: '**/*_spec.js'
 
 
     context 'with non-test file', ->
@@ -31,7 +31,7 @@ describe 'TestFinder', ->
 
     context 'with test file', ->
       beforeEach (done) ->
-        @filePath = path.join @tmpDir, 'server_spec.coffee'
+        @filePath = path.join @tmpDir, 'server_spec.js'
         fsExtra.outputFile @filePath, '', (err) =>
           if err then return done err
           @testFinder.find (@err, @files) => done()
@@ -45,7 +45,7 @@ describe 'TestFinder', ->
 
     context 'with test file in subdirectory', ->
       beforeEach (done) ->
-        @filePath = path.join @tmpDir, 'lib', 'server_spec.coffee'
+        @filePath = path.join @tmpDir, 'lib', 'server_spec.js'
         fsExtra.outputFile @filePath, '', (err) =>
           if err then return done err
           @testFinder.find (@err, @files) => done()
@@ -59,7 +59,7 @@ describe 'TestFinder', ->
 
     context 'with test file in node_modules', ->
       beforeEach (done) ->
-        filePath = path.join @tmpDir, 'node_modules', 'server_spec.coffee'
+        filePath = path.join @tmpDir, 'node_modules', 'server_spec.js'
         fsExtra.outputFile filePath, '', (err) =>
           if err then return done err
           @testFinder.find (@err, @files) => done()

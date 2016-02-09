@@ -10,7 +10,7 @@ module.exports = ->
                        done
 
 
-  @Then /^my "package.json" now lists the devDependencies$/, (table, done) ->
+  @Then /^my "package.json" devDependencies now includes$/, (table, done) ->
     modules = (row[0] for row in table.rows())
     fsExtra.readJson path.join(@tmpDir, 'package.json'), (err, packageJson) ->
       if err then return done err

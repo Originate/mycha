@@ -6,7 +6,7 @@ config =
   mochaOptions:
     booleanOpt: yes
     stringOpt: 'value'
-  testFilePattern: '**/*_spec.coffee'
+  testFilePattern: '**/*_spec.js'
   testHelpers: ['path/to/test/helper']
 
 

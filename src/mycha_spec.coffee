@@ -6,10 +6,10 @@ tmp = require 'tmp'
 
 
 config =
-  mochaOptions:
-    compilers: 'coffee:coffee-script/register'
-  testFilePattern: '**/*_{spec,test}.{coffee,js}'
-  testHelpers: [path.join(__dirname, '..', 'spec', 'spec_helper.coffee')]
+  mochaEnv: {}
+  mochaOptions: {}
+  testFilePattern: '**/*_spec.js'
+  testHelpers: []
 
 
 describe 'Mycha', ->
@@ -35,7 +35,7 @@ describe 'Mycha', ->
         async.series [
           (next) =>
             createTest
-              filePath: path.join(@tmpDir, 'one_spec.coffee')
+              filePath: path.join(@tmpDir, 'one_spec.js')
               passing: yes
               next
           (next) =>
@@ -54,7 +54,7 @@ describe 'Mycha', ->
         async.series [
           (next) =>
             createTest
-              filePath: path.join(@tmpDir, 'one_spec.coffee'),
+              filePath: path.join(@tmpDir, 'one_spec.js'),
               passing: no,
               next
           (next) =>

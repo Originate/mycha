@@ -1,5 +1,6 @@
 async = require 'async'
 colors = require 'colors'
+compilers = require './compilers'
 fsExtra = require 'fs-extra'
 path = require 'path'
 spawn = require 'cross-spawn-async'
@@ -8,6 +9,8 @@ spawn = require 'cross-spawn-async'
 class MychaInstaller
 
   constructor: ({@cwd, @testHelperPath}) ->
+    @extension = path.extname(@testHelperPath).slice 1
+    @compiler = compilers[@extension]
 
 
   install: (done) ->
@@ -16,6 +19,27 @@ class MychaInstaller
       @_writeMychaConfig
       @_writeTestHelper
     ], done
+
+
+  _getMychaConfigContent: ->
+    '''
+    # Environment variables to add to process.env when running mocha
+    mochaEnv: {}
+
+    # Default options to pass to mocha (can be overriden by command line options)
+    mochaOptions:
+      colors: true
+    ''' + (if @compiler then "\n  compilers: #{@extension}:#{@compiler}\n" else '\n') +
+    """
+      reporter: dot
+
+    # Path patten used for finding tests (see https://github.com/isaacs/minimatch)
+    testFilePattern: '**/*{spec,test}.#{@extension}'
+
+    # Files to include before all tests
+    testHelpers:
+      - #{@testHelperPath}
+    """
 
 
   _installDependencies: (done) =>
@@ -30,23 +54,7 @@ class MychaInstaller
   _writeMychaConfig: (done) =>
     fsExtra.outputFile(
       path.join(@cwd, 'mycha.yml')
-      """
-      # Environment variables to add to process.env when running mocha
-      # mochaEnv:
-
-      # Default options to pass to mocha (can be overriden by command line options)
-      mochaOptions:
-        colors: true
-        compilers: coffee:coffee-script/register
-        reporter: dot
-
-      # Path patten used for finding tests (see https://github.com/isaacs/minimatch)
-      testFilePattern: '**/*_{spec,test}.{coffee,js}'
-
-      # Files to include before all tests
-      testHelpers:
-        - #{@testHelperPath}
-      """
+      @_getMychaConfigContent()
       (err) =>
         if err then return done err
         @_writeToStdout "#{colors.green 'create'} mycha.yml", lineBefore: yes
@@ -54,19 +62,11 @@ class MychaInstaller
 
 
   _writeTestHelper: (done) =>
-    fsExtra.outputFile(
+    scaffoldExt = if @compiler then @extension else 'js'
+    @scaffoldPath = path.join __dirname, '..', 'scaffold', "test_helper.#{scaffoldExt}"
+    fsExtra.copy(
+      @scaffoldPath
       path.join(@cwd, @testHelperPath)
-      '''
-      chai = require 'chai'
-      sinon = require 'sinon'
-      chai.use require 'sinon-chai'
-
-      global.chai = chai
-      global.expect = chai.expect
-      global.sinon = sinon
-
-      process.env.NODE_ENV = 'test'
-      '''
       (err) =>
         if err then return done err
         @_writeToStdout "#{colors.green 'create'} #{@testHelperPath}", lineAfter: yes

@@ -16,7 +16,7 @@ Feature: Automatic test file discovery
 
 
   Scenario: tests in multiple locations
-    Given my project has a file "foo_spec.coffee" containing a passing test
-    And my project has a file "dir/bar_spec.coffee" containing a passing test
+    Given my project has a file "foo_spec.js" containing a passing test
+    And my project has a file "dir/bar_spec.js" containing a passing test
     When I run "mycha"
     Then I see "2 passing"

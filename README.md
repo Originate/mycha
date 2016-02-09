@@ -17,6 +17,8 @@ and provides a utility that gets tests up and running quickly
 
 * `mycha install`
   * prompts you for where you would like to install your default test helper, `testHelperPath`
+    * If `testHelperPath` has an extension found [here](src/compilers.coffee) then
+      it writes the test helper in that language and updates the configuration file accordingly
 
   * runs
     ```
@@ -24,30 +26,30 @@ and provides a utility that gets tests up and running quickly
     ```
 
   * writes to `testHelperPath`
-    ```coffee
-    chai = require 'chai'
-    sinon = require 'sinon'
-    chai.use require 'sinon-chai'
+    ```js
+    process.env.NODE_ENV = 'test';
 
-    global.expect = chai.expect
-    global.sinon = sinon
+    var chai = require('chai');
+    var sinon = require('sinon');
+    chai.use(require('sinon-chai'));
 
-    process.env.NODE_ENV = 'test'
+    global.chai = chai;
+    global.expect = chai.expect;
+    global.sinon = sinon;
     ```
 
   * writes to `mycha.yml`
     ```yml
     # Environment variables to add to process.env when running mocha
-    # mochaEnv:
+    mochaEnv: {}
 
-    # Default options to pass to mocha (can be overriden by command line options)
+    # Default options to pass to mocha (can be overridden by command line options)
     mochaOptions:
       colors: true
-      compilers: coffee:coffee-script/register
       reporter: dot
 
     # Path patten used for finding tests (see https://github.com/isaacs/minimatch)
-    testFilePattern: '**/*_{spec,test}.{coffee,js}'
+    testFilePattern: '**/*{spec,test}.js'
 
     # Files to include before all tests
     testHelpers:
@@ -58,6 +60,11 @@ and provides a utility that gets tests up and running quickly
   * if no folders or files are specified runs all tests
   * if folders or files are specified, pass them through to mocha
 
+
+## Compilers
+
+To add a new compiler, add an entry [here](src/compilers.coffee) and add a
+language specific version of the test helper [here](scaffold).
 
 ## Development
 

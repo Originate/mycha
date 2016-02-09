@@ -9,7 +9,7 @@ mochaOptions:
   reporter: mocha-multi
 
 # Path patten used for finding tests (see https://github.com/isaacs/minimatch)
-testFilePattern: '**/*_{spec,test}.{coffee,js}'
+testFilePattern: '**/*_spec.coffee'
 
 # Files to include before all tests
 testHelpers:

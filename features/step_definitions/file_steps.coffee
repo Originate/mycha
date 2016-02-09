@@ -14,7 +14,7 @@ module.exports = ->
 
   @Given /^my project has a (passing|failing) test$/, (status, done) ->
     createTest
-      filePath: path.join(@tmpDir, 'example_spec.coffee')
+      filePath: path.join(@tmpDir, 'example_spec.js')
       passing: isPassing(status)
       done
 
@@ -29,5 +29,6 @@ module.exports = ->
   @Then /^my project now has a file "([^"]*)" containing$/, (fileName, fileContent, done) ->
     fs.readFile path.join(@tmpDir, fileName), 'utf8', (err, content) ->
       if err then return done err
+      content = content.replace /\s*$/, '' # trim trailing whitespace
       expect(content).to.eql fileContent
       done()

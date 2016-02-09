@@ -4,12 +4,13 @@ fsExtra = require 'fs-extra'
 testContent = (passing) ->
   if passing
     '''
-    it 'passes', ->
+    it('passes', function() {});
     '''
   else
     '''
-    it 'fails', ->
-      expect(false).to.be.true
+    it('fails', function() {
+      throw new Error('fail');
+    });
     '''
 
 

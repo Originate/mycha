@@ -5,7 +5,7 @@ path = require 'path'
 module.exports = ->
 
   @Given /^I have Mycha installed$/, {timeout: 10000}, (done) ->
-    @installMycha 'spec/spec_helper.coffee', done
+    @installMycha 'spec/spec_helper.js', done
 
 
   @When /^I run "([^"]*)"$/, (command, done) ->
