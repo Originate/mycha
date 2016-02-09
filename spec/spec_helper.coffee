@@ -1,8 +1,3 @@
-require('blanket')
-  pattern: ['']
-  loader: './node-loaders/coffee-script'
-  'data-cover-never': ['dist', 'features', 'node_modules', 'spec']
-
 chai = require 'chai'
 sinon = require 'sinon'
 chai.use require 'sinon-chai'
