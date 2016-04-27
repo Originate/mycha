@@ -10,13 +10,13 @@
     "colors": "^1.0.3",
     "cross-spawn-async": "^2.0.0",
     "dargs": "^4.0.0",
-    "fs-extra": "^0.26.2",
-    "glob": "^6.0.1",
+    "fs-extra": "^0.29.0",
+    "glob": "^7.0.3",
     "js-yaml": "^3.5.2",
     "lodash": "^4.3.0",
     "minimist": "^1.1.1",
     "mocha": "^2.1.0",
-    "prompt": "^0.3.0"
+    "prompt": "^1.0.0"
   },
   "repository": {
     "type": "git",
@@ -42,9 +42,9 @@
     "chai": "^3.2.0",
     "coffee-script": "^1.9.0",
     "coffeelint": "^1.10.1",
-    "cucumber": "^0.9.2",
+    "cucumber": "^0.10.2",
     "david": "^7.0.0",
-    "dependency-lint": "^3.0.0",
+    "dependency-lint": "^4.0.1",
     "sinon": "^1.14.1",
     "sinon-chai": "^2.7.0",
     "tmp": "0.0.28"
