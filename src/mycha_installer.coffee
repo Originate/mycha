@@ -3,7 +3,7 @@ colors = require 'colors'
 compilers = require './compilers'
 fsExtra = require 'fs-extra'
 path = require 'path'
-spawn = require 'cross-spawn-async'
+spawn = require 'cross-spawn'
 
 
 class MychaInstaller
