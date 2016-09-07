@@ -6,16 +6,16 @@
     "mycha": "bin/mycha"
   },
   "dependencies": {
-    "async": "^1.4.2",
+    "async": "^2.0.1",
     "colors": "^1.0.3",
-    "cross-spawn-async": "^2.0.0",
-    "dargs": "^4.0.0",
-    "fs-extra": "^0.29.0",
+    "cross-spawn": "^4.0.0",
+    "dargs": "^5.0.1",
+    "fs-extra": "^0.30.0",
     "glob": "^7.0.3",
     "js-yaml": "^3.5.2",
     "lodash": "^4.3.0",
     "minimist": "^1.1.1",
-    "mocha": "^2.1.0",
+    "mocha": "^3.0.2",
     "prompt": "^1.0.0"
   },
   "repository": {
@@ -42,8 +42,8 @@
     "chai": "^3.2.0",
     "coffee-script": "^1.9.0",
     "coffeelint": "^1.10.1",
-    "cucumber": "^0.10.2",
-    "david": "^7.0.0",
+    "cucumber": "^1.2.2",
+    "david": "^8.0.0",
     "dependency-lint": "^4.0.1",
     "sinon": "^1.14.1",
     "sinon-chai": "^2.7.0",
