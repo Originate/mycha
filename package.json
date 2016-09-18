@@ -1,6 +1,6 @@
 {
   "name": "mycha",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "main": "dist/mycha.js",
   "bin": {
     "mycha": "bin/mycha"
@@ -56,6 +56,6 @@
     "scaffold"
   ],
   "engines": {
-    "node" : "4 || 6"
+    "node": "4 || 6"
   }
 }
