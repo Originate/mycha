@@ -4,10 +4,11 @@ cache:
 
 language: node_js
 
-node_js:
-  - "0.12"
-  - "iojs"
-  - "4.2"
-  - "5"
+node_js: "6"
+
+matrix:
+  include:
+    - node_js: "4"
+      script: "npm run feature-test"
 
 sudo: false

@@ -24,16 +24,16 @@
   },
   "scripts": {
     "build": "find ./src -name '*.coffee' -not -name '*_spec.coffee' | xargs coffee --compile --output dist/",
-    "feature-tests": "cucumber-js -f progress",
+    "feature-test": "cucumber-js -f progress",
     "lint": "npm run lint-coffeescript && npm run lint-dependencies",
     "lint-coffeescript": "coffeelint features spec src -f coffeelint.json5",
     "lint-dependencies": "dependency-lint",
     "postpublish": "git push && git push --tags",
-    "prefeature-tests": "npm run build",
+    "prefeature-test": "npm run build",
     "prepublish": "npm run build",
     "preversion": "npm test",
-    "test": "npm run lint && npm run unit-tests && npm run feature-tests",
-    "unit-tests": "coffee src/cli.coffee",
+    "test": "npm run lint && npm run unit-test && npm run feature-test",
+    "unit-test": "coffee src/cli.coffee",
     "update": "david update && npm test",
     "update-check": "david"
   },
@@ -43,7 +43,7 @@
     "coffee-script": "^1.9.0",
     "coffeelint": "^1.10.1",
     "cucumber": "^1.2.2",
-    "david": "^8.0.0",
+    "david": "^9.0.0",
     "dependency-lint": "^4.0.1",
     "sinon": "^1.14.1",
     "sinon-chai": "^2.7.0",
@@ -54,5 +54,8 @@
     "bin",
     "dist",
     "scaffold"
-  ]
+  ],
+  "engines": {
+    "node" : "4 || 6"
+  }
 }

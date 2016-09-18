@@ -9,6 +9,8 @@ and provides a utility that gets tests up and running quickly
 
 ## Install
 
+Supported on Node.js versions 4 and 6
+
 * `npm install --save-dev mycha`
 * add `./node_modules/.bin` to your PATH environment variable
 
