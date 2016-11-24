@@ -1,4 +1,7 @@
-# Mycha [![Build Status](https://travis-ci.org/Originate/mycha.svg?branch=master)](https://travis-ci.org/Originate/mycha) [![Dependency Status](https://david-dm.org/Originate/mycha.svg)](https://david-dm.org/Originate/mycha)
+<img src="documentation/logo.png" width="788" height="100" alt="logo">
+<hr>
+
+[![Build Status](https://travis-ci.org/Originate/mycha.svg?branch=master)](https://travis-ci.org/Originate/mycha) [![Dependency Status](https://david-dm.org/Originate/mycha.svg)](https://david-dm.org/Originate/mycha)
 
 /'maɪ.kɑː/
 
