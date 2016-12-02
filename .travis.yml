@@ -4,11 +4,16 @@ cache:
 
 language: node_js
 
-node_js: "6"
-
 matrix:
   include:
     - node_js: "4"
       script: "npm run feature-test"
+    - node_js: "7"
+      script: "npm run feature-test"
+
+node_js: "6"
+
+notifications:
+  email: false
 
 sudo: false
