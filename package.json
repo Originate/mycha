@@ -56,6 +56,6 @@
     "scaffold"
   ],
   "engines": {
-    "node": "4 || 6"
+    "node": ">=4.0.0"
   }
 }
