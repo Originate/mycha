@@ -1,7 +1,10 @@
 <img src="documentation/logo.png" width="788" height="100" alt="logo">
 <hr>
 
-[![Build Status](https://travis-ci.org/Originate/mycha.svg?branch=master)](https://travis-ci.org/Originate/mycha) [![Dependency Status](https://david-dm.org/Originate/mycha.svg)](https://david-dm.org/Originate/mycha)
+[![Build Status](https://travis-ci.org/Originate/mycha.svg?branch=master)](https://travis-ci.org/Originate/mycha)
+[![Dependency Status](https://david-dm.org/Originate/mycha.svg)](https://david-dm.org/Originate/mycha)
+[![YARN compatibility](https://img.shields.io/badge/yarn-compatible-brightgreen.svg)](https://yarnpkg.com)
+
 
 /'maɪ.kɑː/
 
