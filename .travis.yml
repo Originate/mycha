@@ -1,12 +1,20 @@
+before_install:
+- npm i -g yarn
+
 cache:
   directories:
     - $HOME/.npm
     - $HOME/.yarn-cache
     - node_modules
 
-
-before_install:
-- npm i -g yarn
+deploy:
+  api_key: "$NPM_AUTH_TOKEN"
+  email: "hello@originate.com"
+  on:
+    node: '6'
+    tags: true
+  provider: npm
+  skip_cleanup: true
 
 install:
 - yarn
