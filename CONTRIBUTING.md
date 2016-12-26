@@ -22,6 +22,6 @@
 * [update the dependencies](#update-dependencies) to the latest version
 
 ```
-yarn version <patch|minor|major>
+yarn version
 # push up changes, CI will publish
 ```
